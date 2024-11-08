@@ -3,25 +3,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@vitejs/plugin-vue": "^5.1.4",
     "chart.js": "^4.4.4",
-    "lucide-vue-next": "^0.429.0",
-    "nuxt-headlessui": "^1.2.0",
-    "vue": "latest",
+    "vite": "^5.4.10",
+    "vue": "^3.5.12",
     "vue-chartjs": "^5.3.1"
   },
   "devDependencies": {
-    "@pinia/nuxt": "^0.5.4",
-    "nuxt": "^3.13.2"
-  },
-  "overrides": {
-    "vue": "latest"
+    "unocss": "^0.64.0"
   }
 }
