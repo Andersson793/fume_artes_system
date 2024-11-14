@@ -1,28 +1,16 @@
 <script lang="ts">
-import {
-    BoltIcon,
-    ChartSplineIcon,
-    HomeIcon,
-    UserSearchIcon,
-    SquareChartGantt,
-} from "lucide-vue-next";
+
 
 export default {
     data() {
         return {
             enabled: true,
-            route: useWebsiteStore(),
-            date: new Intl.DateTimeFormat("en-UE", {
-                weekday: "long",
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-            }).format(new Date()),
+            
         };
     },
     beforeMount() {
         // Use SSR-safe IDs for Headless UI
-        provideHeadlessUseId(() => useId());
+        
 
         //change the font
     },
