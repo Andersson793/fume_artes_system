@@ -1,26 +1,21 @@
-<script lang="ts">
+<script >
+import { RouterLink, RouterView } from 'vue-router';
+import MenuItem from '/componenets/MenuItem.vue'
 
 
 export default {
+
     data() {
         return {
             enabled: true,
             
+            
         };
     },
-    beforeMount() {
-        // Use SSR-safe IDs for Headless UI
-        
-
-        //change the font
-    },
+    
     mounted() {},
     components: {
-        HomeIcon,
-        ChartSplineIcon,
-        BoltIcon,
-        UserSearchIcon,
-        SquareChartGantt,
+        MenuItem
     },
 };
 </script>
@@ -33,48 +28,48 @@ export default {
                 </div>
                 <div class="">
                     <ul class="grid grid-cols-1 gap-6 p-4">
-                        <NuxtLink to="/">
+                        <RouterLink to="/">
                             <MenuItem>
                                 <template #icon>
                                     <HomeIcon />
                                 </template>
                                 Home
                             </MenuItem>
-                        </NuxtLink>
-                        <NuxtLink to="/manager">
+                        </RouterLink>
+                        <RouterLink to="/manager">
                             <MenuItem>
                                 <template #icon>
-                                    <SquareChartGantt />
+                                    i
                                 </template>
                                 Manager
                             </MenuItem>
-                        </NuxtLink>
+                        </RouterLink>
 
-                        <NuxtLink to="/dashboard">
+                        <RouterLink to="/dashboard">
                             <MenuItem>
                                 <template #icon>
-                                    <ChartSplineIcon />
+                                    i
                                 </template>
 
                                 Dashboard
                             </MenuItem>
-                        </NuxtLink>
-                        <NuxtLink to="/config">
+                        </RouterLink>
+                        <RouterLink to="/config">
                             <MenuItem>
                                 <template #icon>
-                                    <BoltIcon />
+                                    i
                                 </template>
                                 Configs
                             </MenuItem>
-                        </NuxtLink>
-                        <NuxtLink to="/account">
+                        </RouterLink>
+                        <RouterLink to="/account">
                             <MenuItem>
                                 <template #icon>
-                                    <UserSearchIcon />
+                                    i
                                 </template>
                                 Account
                             </MenuItem>
-                        </NuxtLink>
+                        </RouterLink>
                     </ul>
                 </div>
             </div>
@@ -84,14 +79,14 @@ export default {
                 class="bg-red-300 m-2 rounded-md py-5 grid grid-cols-2 px-5"
             >
                 <span class="text-lg font-bold capitalize">{{
-                    route.currentPage
+                    
                 }}</span>
                 <div class="text-right capitalize" data-allow-mismatch>
-                    {{ date }}
+                    
                 </div>
             </header>
 
-            <NuxtPage />
+            <RouterView/>
         </div>
     </div>
 </template>

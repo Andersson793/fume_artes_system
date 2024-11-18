@@ -8,16 +8,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^5.1.4",
-    "chart.js": "^4.4.4",
-    "pinia": "^2.2.6",
-    "vite": "^5.4.10",
-    "vue": "^3.5.12",
-    "vue-chartjs": "^5.3.1",
-    "vue-router": "^4.4.5"
+    "chart.js": "^4.4.4"
   },
   "devDependencies": {
+    "pinia": "^2.2.6",
+    "vue": "^3.5.12",
+    "vue-chartjs": "^5.3.1",
+    "vue-router": "^4.4.5",
     "@unocss/postcss": "^0.64.0",
-    "unocss": "^0.64.0"
+    "unocss": "^0.64.0",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "vite": "^5.4.10"
   }
 }
