@@ -11,7 +11,10 @@ import {
     Tooltip,
     SubTitle,
 } from "chart.js";
+
 import { Doughnut, Bar } from "vue-chartjs";
+import { useWebsiteStore } from "../stores/store";
+import AppPanel from "../components/AppPanel.vue";
 
 Chart.register(
     DoughnutController,
@@ -113,7 +116,7 @@ export default {
     mounted() {
         useWebsiteStore().currentPage = this.$route.name;
     },
-    components: { Doughnut, Bar },
+    components: { Doughnut, Bar, AppPanel },
 };
 </script>
 <template>

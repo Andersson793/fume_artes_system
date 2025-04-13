@@ -1,8 +1,10 @@
 <script>
+import { useWebsiteStore } from "@stores/store";
+
 export default {
     data() {
         return {
-            id: useId(),
+            id: useWebsiteStore().userId,
             inputValue: "",
         };
     },
@@ -31,7 +33,7 @@ export default {
         :id="id"
         :type="$props.type"
         :placeholder="$props.placeholder"
-        class="px-2 py-4 w-full mr-3 rounded-sm"
+        class="px-2 py-4 rounded-sm"
         v-model="inputValue"
     />
 </template>

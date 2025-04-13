@@ -1,21 +1,22 @@
-import { createMemoryHistory, createRouter } from 'vue-router';
+import { createMemoryHistory, createRouter } from "vue-router";
 
-import dashboard from '/pages/dashboard.vue'
-import maneger from '/pages/dashboard.vue'
-import config from '/pages/dashboard.vue'
-import account from '/pages/dashboard.vue'
-import home from '/pages/dashboard.vue'
-
+import Dashboard from "./pages/dashboard.vue";
+import Manager from "./pages/manager.vue";
+import Config from "./pages/config.vue";
+import Account from "./pages/account.vue";
+import Home from "./pages/index.vue";
 
 const routes = [
-    {path: '/', component: home},
-    {path: '/dashboard', component: dashboard},
-    {path: '/maneger', component: maneger},
-    {path: '/config', component: config},
-    {path: '/account', component: account}
-]
+  { path: "/", component: Home },
+  { path: "/dashboard", component: Dashboard },
+  { path: "/manager", component: Manager },
+  { path: "/config", component: Config },
+  { path: "/account", component: Account },
+];
 
 const router = createRouter({
-    history: createMemoryHistory(),
-    routes,
-  })
+  history: createMemoryHistory(),
+  routes,
+});
+
+export default router;

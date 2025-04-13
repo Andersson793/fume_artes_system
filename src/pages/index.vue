@@ -1,4 +1,10 @@
 <script>
+import { useWebsiteStore } from "@/stores/store";
+import AppMain from "@/components/app/AppMain.vue";
+import AppPanel from "@/components/AppPanel.vue";
+import AlertItem from "@/components/AlertItem.vue";
+import AppTable from "@/components/AppTable.vue";
+
 export default {
     data() {
         return {
@@ -49,13 +55,21 @@ export default {
             this.alerts.splice(index, 1);
         },
     },
+    components: {
+        AppMain,
+        AppPanel,
+        AlertItem,
+        AppTable,
+    },
 };
 </script>
 <template>
     <AppMain>
-        <AppPanel title_panel="Title panel" class="col-span-5">
-            <AppTable />
-        </AppPanel>
+        <div class="col-span-5">
+            <AppPanel title_panel="Title panel">
+                <AppTable />
+            </AppPanel>
+        </div>
 
         <AppPanel title_panel="Alerts" class="col-span-3">
             <div class="overflow-y-scroll" v-if="alerts.length > 0">

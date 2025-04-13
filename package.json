@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "fume_artes_system",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,16 +8,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "chart.js": "^4.4.4"
+    "@unocss/postcss": "^0.64.1",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "chart.js": "^4.4.8",
+    "lucide-vue-next": "^0.484.0",
+    "pinia": "^3.0.1",
+    "reka-ui": "^2.2.0",
+    "unocss": "66.1.0-beta.6",
+    "vite": "^6.2.5",
+    "vue": "^3.5.13",
+    "vue-chartjs": "^5.3.2",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "pinia": "^2.2.6",
-    "vue": "^3.5.12",
-    "vue-chartjs": "^5.3.1",
-    "vue-router": "^4.4.5",
-    "@unocss/postcss": "^0.64.0",
-    "unocss": "^0.64.0",
-    "@vitejs/plugin-vue": "^5.1.4",
-    "vite": "^5.4.10"
+    "@iconify-json/basil": "^1.2.2",
+    "@unocss/preset-icons": "66.1.0-beta.10",
+    "@unocss/preset-mini": "66.1.0-beta.10",
+    "@unocss/preset-web-fonts": "66.1.0-beta.10"
   }
 }

@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             table: {
-                headers: ["#", "Item", "Date", "Value", ""],
+                headers: ["#", "Description", "Date", "Customer", "Value"],
                 itemsMenu: [
                     {
                         label: "Item menu",

@@ -1,18 +1,18 @@
 <script>
-import AppMain from "~/components/app/AppMain.vue";
-import AppButton from "~/components/form/AppButton.vue";
-import AppInput from "~/components/form/AppInput.vue";
+import AppMain from "@/components/app/AppMain.vue";
+import AppButton from "@/components/form/AppButton.vue";
+import AppInput from "@/components/form/AppInput.vue";
+import AppPanel from "@/components/AppPanel.vue";
+import { useWebsiteStore } from "@/stores/store";
 
 export default {
     data() {
-        return {
-            id: useId(),
-        };
+        return {};
     },
     mounted() {
         useWebsiteStore().currentPage = this.$route.name;
     },
-    components: { AppInput, AppButton, AppMain },
+    components: { AppInput, AppButton, AppMain, AppPanel },
 };
 </script>
 <template>
