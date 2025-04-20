@@ -35,7 +35,7 @@ export default {
             <div class="border-r-solid border-gray-2 h-full">
                 <div class="flex flex-col items-center py-3 align-center border-b-solid border-gray-200">
                   <AvatarRoot
-                      class="bg-blackA3 inline-flex h-13 w-13 select-none items-center justify-center overflow-hidden rounded-full align-middle border-solid border-.5"
+                      class="inline-flex h-15 w-15 select-none items-center justify-center overflow-hidden rounded-full align-middle border-solid border-.5"
                   >
                       <AvatarImage
                           class="h-full w-full ronded-full object-cover"

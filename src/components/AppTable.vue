@@ -114,8 +114,8 @@ export default {
 </script>
 <template>
     <table class="table-auto w-full mb-5 border-collapse">
-        <thead class="">
-            <tr>
+        <thead class="bg-blue-100">
+            <tr >
                 <th
                     class="font-semibold whitespace-nowrap text-left p-4 border-y border-blue-red-100"
                     v-for="item in table.headers"
@@ -128,7 +128,7 @@ export default {
             <tr
                 v-for="item in TablePagination[currentPage]"
                 :key="item.id"
-                class="border border-red-300"
+                class="odd:bg-white even:bg-gray-100"
             >
                 <td class="font-semibold whitespace-nowrap text-left p-4">
                     {{ item.id }}
@@ -158,3 +158,8 @@ export default {
         />
     </div>
 </template>
+<style scoped>
+table{
+
+}
+</style>
