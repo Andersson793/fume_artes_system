@@ -1,20 +1,26 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
 import MenuItem from "./components/MenuItem.vue";
-import { HomeIcon } from "lucide-vue-next";
 import { AvatarFallback, AvatarImage, AvatarRoot } from "reka-ui";
+import {useWebsiteStore} from '@stores/store.js'
 
 export default {
     data() {
         return {
             enabled: true,
+            currentPage: useWebsiteStore().currentPage,
+
         };
     },
 
-    mounted() {},
+    mounted() {
+
+
+      this.currentPage = this.$route.name;
+
+    },
     components: {
         MenuItem,
-        HomeIcon,
         RouterLink,
         RouterView,
         AvatarRoot,
@@ -25,15 +31,30 @@ export default {
 </script>
 <template>
     <div class="grid grid-cols-7 max-h-screen h-screen w-full">
-        <div class="bg-blue-200">
-            <div>
-                <div class="bg-blue-300 h-32 flex items-center justify-center">
-                    [logo]
+        <div>
+            <div class="border-r-solid border-gray-2 h-full">
+                <div class="flex flex-col items-center py-3 align-center border-b-solid border-gray-200">
+                  <AvatarRoot
+                      class="bg-blackA3 inline-flex h-13 w-13 select-none items-center justify-center overflow-hidden rounded-full align-middle border-solid border-.5"
+                  >
+                      <AvatarImage
+                          class="h-full w-full ronded-full object-cover"
+                          src="https://avatars.githubusercontent.com/u/94249557?v=4"
+                      />
+                      <AvatarFallback />
+                  </AvatarRoot>
+
+                  <p>andersson793</p>
+
+                  <button class="bg-red-300 py-1 px-2 rounded-md">
+                    Logout
+                  </button>
+
                 </div>
 
                 <div class="p-6 grid grid-cols-1 gap-5">
                     <RouterLink to="/">
-                        <MenuItem>
+                        <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div
                                     class="i-basil:home-outline text-2xl pr-5"
@@ -44,7 +65,7 @@ export default {
                     </RouterLink>
 
                     <RouterLink to="/manager">
-                        <MenuItem>
+                        <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div
                                     class="i-basil:wallet-outline text-2xl pr-5"
@@ -55,7 +76,7 @@ export default {
                     </RouterLink>
 
                     <RouterLink to="/dashboard">
-                        <MenuItem>
+                        <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div
                                     class="i-basil:chart-pie-alt-outline text-2xl pr-5"
@@ -66,7 +87,7 @@ export default {
                     </RouterLink>
 
                     <RouterLink to="/config">
-                        <MenuItem>
+                        <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div
                                     class="i-basil:settings-outline text-2xl pr-5"
@@ -77,7 +98,7 @@ export default {
                     </RouterLink>
 
                     <RouterLink to="/account">
-                        <MenuItem>
+                        <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div
                                     class="i-basil:user-outline text-2xl pr-5"
@@ -90,28 +111,27 @@ export default {
             </div>
         </div>
 
-        <div class="bg-red-200 col-span-6 overflow-scroll max-h-screen">
-            <header
-                class="bg-red-300 m-2 rounded-md py-4 grid grid-cols-2 px-5 flex justify-between"
-            >
-                <span class="text-lg font-bold capitalize">any</span>
+        <div class="col-span-6 overflow-scroll max-h-screen">
 
-                <div>
-                    <div
-                        class="inline-flex pr-10 text-green-500 text-sm font-semibold"
-                    >
-                        12 minutes ago
+
+            <header class="px-10 flex justify-between items-center">
+
+              <h2>Fume Artes System</h2>
+
+              <!--
+              <div class="relative">
+                <div class="i-basil:notification-outline text-3xl"></div>
+
+                    <div class="bg-red-300 w-6 h-6 rounded-full flex justify-center items-center text-sm absolute ">
+                      12
                     </div>
-                    <AvatarRoot
-                        class="bg-blackA3 inline-flex h-12 w-12 select-none items-center justify-center overflow-hidden rounded-full align-middle"
-                    >
-                        <AvatarImage
-                            class="h-full w-full ronded-full object-cover"
-                            src="https://avatars.githubusercontent.com/u/94249557?v=4"
-                        />
-                        <AvatarFallback />
-                    </AvatarRoot>
-                </div>
+
+              </div>
+
+            -->
+
+
+
             </header>
 
             <RouterView />

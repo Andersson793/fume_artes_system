@@ -13,7 +13,7 @@ export default {
 };
 </script>
 <template>
-    <div class="bg-red-400 rounded-md max-h-fit">
+    <div class="rounded-md max-h-fit border-solid border-gray-300">
         <header class="px-5 py-5 font-bold">
             <h3 v-if="title_panel">{{ title_panel }}</h3>
         </header>

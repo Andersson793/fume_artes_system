@@ -23,14 +23,14 @@ export default {
 };
 </script>
 <template>
-    <div>
-        <span
+    <div class="inline-flex">
+        <div
             v-for="(item, index) in $props.pages"
-            class="hover:bg-purple-200 py-2 px-3 mx-2 rounded-md cursor-pointer select-none"
-            :class="{ 'bg-red-500': index === $props.currentPage }"
+            class="hover:bg-blue-200 w-8 h-8 mx-2 rounded-full cursor-pointer select-none flex justify-center items-center"
+            :class="{ 'bg-gray-200': index === $props.currentPage }"
             @click="changeCurrentPage(index)"
         >
             {{ index + 1 }}
-        </span>
+        </div>
     </div>
 </template>

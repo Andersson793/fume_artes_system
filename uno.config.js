@@ -1,6 +1,6 @@
 import { defineConfig } from "unocss";
 import presetIcons from "@unocss/preset-icons";
-import presetMini from "@unocss/preset-mini";
+import presetMini from '@unocss/preset-mini';
 import presetWebFonts from "@unocss/preset-web-fonts";
 
 export default defineConfig({

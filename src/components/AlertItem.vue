@@ -1,6 +1,4 @@
 <script>
-import { X } from "lucide-vue-next";
-
 export default {
     props: {
         user: {
@@ -21,11 +19,11 @@ export default {
             type: Function,
         },
     },
-    components: { X },
+
 };
 </script>
 <template>
-    <div class="bg-green-200 p-1 rounded-sm mb-10">
+    <div class="bg-gray-200 p-1 rounded-md mb-10">
         <div class="flex justify-end items-center py-1.5 text-sm">
             <span>
                 {{ $props.date }}
@@ -33,11 +31,11 @@ export default {
             <span class="mx-5">
                 {{ $props.user }}
             </span>
-            <span class="cursor-pointer" @click="$props.remove($props.index)">
-                <X size="22" />
+            <span class="cursor-pointer i-basil:cross-solid text-3xl" @click="$props.remove($props.index)">
+
             </span>
         </div>
-        <div class="p-2 bg-blue-200 rounded-md">
+        <div class="p-2 bg-white rounded-md">
             <p>{{ $props.body }}</p>
         </div>
     </div>

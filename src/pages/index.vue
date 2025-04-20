@@ -71,7 +71,7 @@ export default {
             </AppPanel>
         </div>
 
-        <AppPanel title_panel="Alerts" class="col-span-3">
+        <AppPanel title_panel="Calendar here" class="col-span-3">
             <div class="overflow-y-scroll" v-if="alerts.length > 0">
                 <AlertItem
                     v-for="(alert, index) in alerts"

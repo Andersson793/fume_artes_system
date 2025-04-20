@@ -3,14 +3,20 @@ import AppMain from "@/components/app/AppMain.vue";
 import AppButton from "@/components/form/AppButton.vue";
 import AppInput from "@/components/form/AppInput.vue";
 import AppPanel from "@/components/AppPanel.vue";
-import { useWebsiteStore } from "@/stores/store";
+import {useWebsiteStore} from '@stores/store.js'
 
 export default {
     data() {
-        return {};
+        return {
+          store: useWebsiteStore()
+        };
     },
     mounted() {
-        useWebsiteStore().currentPage = this.$route.name;
+        console.log(this.store.currentPage)
+
+        this.store.currentPage = this.$route.name;
+
+        console.log(this.store.currentPage)
     },
     components: { AppInput, AppButton, AppMain, AppPanel },
 };
@@ -31,6 +37,7 @@ export default {
                     <span>Account</span>
                     <p class="text-lg">type: Master</p>
                     <p class="text-lg">last login: 12/12/2001 10:15</p>
+                    <p>{{this.store.currentPage}}</p>
                 </div>
             </div>
         </AppPanel>

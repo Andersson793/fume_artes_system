@@ -1,9 +1,14 @@
 import { defineStore } from "pinia";
 import { useId } from "vue";
 
-export const useWebsiteStore = defineStore("store", {
+ export const useWebsiteStore = defineStore("store", {
   state: () => ({
     id: useId(),
-    currentPage: "Home",
+    currentPage: "any"
   }),
+  actions: {
+    changePage(value) {
+      this.currentPage = value
+    }
+  }
 });
