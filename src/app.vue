@@ -44,9 +44,9 @@ export default {
 
                     <p>andersson793</p>
 
-                    <button class="bg-red-300 py-1 px-2 rounded-md">
+                    <input type="button" class="bg-red-300 py-1 px-2 rounded-md">
                         Logout
-                    </button>
+                    </input>
                 </div>
 
                 <div class="p-6 grid grid-cols-1 gap-5">
