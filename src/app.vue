@@ -44,9 +44,7 @@ export default {
 
                     <p>andersson793</p>
 
-                    <input type="button" class="bg-red-300 py-1 px-2 rounded-md">
-                        Logout
-                    </input>
+                    <input type="button" class="bg-white hover:bg-red-100 text-red rounded-md p-1 w-fit h-fit font-bold border-solid border-1 border-red cursor-pointer inline-flex items-center" value="Logout"/>
                 </div>
 
                 <div class="p-6 grid grid-cols-1 gap-5">

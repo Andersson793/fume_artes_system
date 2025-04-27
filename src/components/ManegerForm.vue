@@ -22,7 +22,6 @@ export default {
                 customer_cnpj: "",
                 date: "",
                 description: "",
-                finished: true,
             },
             input_currency_config: {
               decimal: ',',
@@ -60,7 +59,7 @@ export default {
         addItem() {
             const item = {
                 name: this.form.combobox,
-                price: new Number(this.form.price),
+                price: this.form.price,
             };
 
             this.form.combobox && this.form.price
@@ -73,16 +72,6 @@ export default {
         },
 
         /*
-        addTag(i) {
-            if (i != "") {
-                if (this.form.tags.length > 3) {
-                    alert("To many tags");
-                } else {
-                    this.form.tags.push(i);
-                }
-            }
-        },
-
 
         //adicionar removeItem()  !!!!!!!!!
 
@@ -114,7 +103,7 @@ export default {
                 <AppCombobox placeholder='Item descrition' class="col-span-1" v-model="form.combobox" />
 
                 <div >
-                  <vue-number placeholder='Price' class="px-2 py-4 mt-3 rounded-sm outline-none border-none bg-gray-100 font-semibold" v-model="form.price" v-bind="input_currency_config"></vue-number>
+                  <vue-number placeholder='Price' class="px-2 py-4 mt-3 rounded-sm outline-none border-none bg-gray-100 font-semibold" v-model.number="form.price" v-bind="input_currency_config"></vue-number>
 
                 </div>
 
@@ -190,7 +179,7 @@ export default {
         </div>
 
         <div class="flex justify-end items-end mt-10">
-            <AppButton @click="clearForm" class="bg-rose-500 mr-10">
+            <AppButton @click="clearForm()" class="bg-rose-500 mr-10">
                 Discart
             </AppButton>
             <AppButton class='bg-green-500'> Save </AppButton>
