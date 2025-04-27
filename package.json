@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@coders-tm/vue-number-format": "^3.35.4",
     "@vitejs/plugin-vue": "^5.2.3",
     "chart.js": "^4.4.9",
     "lucide-vue-next": "^0.484.0",

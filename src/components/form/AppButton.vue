@@ -1,6 +1,6 @@
 <template>
     <button
-        class="bg-green-800 rounded-sm px-4 py-2 w-fit h-fit text-white font-bold"
+        class="rounded-md p-3 w-fit h-fit font-bold border-none cursor-pointer text-white inline-flex items-center"
     >
         <slot />
     </button>

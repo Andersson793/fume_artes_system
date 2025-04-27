@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@coders-tm/vue-number-format':
+        specifier: ^3.35.4
+        version: 3.35.4
       '@vitejs/plugin-vue':
         specifier: ^5.2.3
         version: 5.2.3(vite@6.3.2(jiti@2.4.2)(tsx@4.19.3))(vue@3.5.13)
@@ -83,6 +86,9 @@ packages:
   '@babel/types@7.27.0':
     resolution: {integrity: sha512-H45s8fVLYjbhFH62dIJ3WtmJ6RSPt/3DRO0ZcT2SUiYiQyz3BLVb9ADEnLl91m74aQPS3AzzeajZHYOalWe3bg==}
     engines: {node: '>=6.9.0'}
+
+  '@coders-tm/vue-number-format@3.35.4':
+    resolution: {integrity: sha512-ekT8pEtLhaQ5FsimLWOAwK5U4yTVBFjSuCQUvGQCbsXHr1FN7cru7HfxjvDBtebOGRyuAISpzduXcxikoRySKg==}
 
   '@esbuild/aix-ppc64@0.25.2':
     resolution: {integrity: sha512-wCIboOL2yXZym2cgm6mlA742s9QeJ8DjGVaL39dLN4rRwrOgOyYSnOaFPhKZGLb2ngj4EyfAFjsNJwPXZvseag==}
@@ -1002,6 +1008,8 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
+
+  '@coders-tm/vue-number-format@3.35.4': {}
 
   '@esbuild/aix-ppc64@0.25.2':
     optional: true

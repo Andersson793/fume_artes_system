@@ -40,7 +40,7 @@ export default {
                         datasets: [
                             {
                                 data: [200, 50],
-                                backgroundColor: ["red", "green"],
+                                backgroundColor: ["oklch(72.3% 0.219 149.579)", "oklch(64.5% 0.246 16.439)"],
                             },
                         ],
                         labels: ["Too", "Bar"],
@@ -83,13 +83,8 @@ export default {
                                     45,
                                 ],
                                 backgroundColor: [
-                                    "red",
-                                    "blue",
-                                    "pink",
-                                    "gray",
-                                    "orange",
-                                    "cian",
-                                    "green",
+                                    "oklch(70.7% 0.165 254.624)",
+                                    "oklch(88.2% 0.059 254.128)",
                                 ],
                                 borderColor: "white",
                                 borderWidth: 2,
