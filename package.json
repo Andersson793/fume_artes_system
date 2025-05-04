@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "go run ./api/main.go"
   },
   "dependencies": {
     "@coders-tm/vue-number-format": "^3.35.4",

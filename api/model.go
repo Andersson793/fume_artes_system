@@ -1,32 +1,44 @@
 package main
 
-type Person struct {
-	Name string `json:"name"`
-	Age  int    `json:"age"`
-}
+import (
+	"time"
+
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
 
 type Customer struct {
-	ID   int    `gorm:"default:gen_random_uuid()"`
-	Name string `json:"name"`
+	ID        uuid.UUID      `json:"id"`
+	Name      string         `json:"name"`
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `json:"deleted_at"`
 }
 
 type Order struct {
-	ID       int    `gorm:"default:gen_random_uuid()"`
-	Date     string `json:"date"`
-	Value    int    `json:"value"`
-	Customer string `json:"customer"`
+	ID        uuid.UUID      `json:"id"`
+	Value     int            `json:"value"`
+	Customer  string         `json:"customer"`
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `json:"deleted_at"`
 }
 
 type User struct {
-	ID    string `gorm:"default:gen_random_uuid()"` // db func
-	Name  string `json:"name"`
-	Email string `json:"email"`
-	Type  string `json:"type"`
+	ID        uuid.UUID `json:"id"`
+	Name      string    `json:"name"`
+	Email     string    `json:"email"`
+	Type      string    `json:"type"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	DeletedAt time.Time `json:"deleted_at"`
 }
 
-type ServicePending struct {
-	ID          int    `gorm:"default:gen_random_uuid()"`
-	User        User   `json:"user"`
-	Date        string `json:"date"`
-	Description string `json:"description"`
+type PendingService struct {
+	ID          uuid.UUID `json:"id"`
+	User        uuid.UUID `json:"user_id"`
+	Description string    `json:"description"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
+	DeletedAt   time.Time `json:"deleted_at"`
 }
