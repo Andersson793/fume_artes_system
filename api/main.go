@@ -8,14 +8,22 @@ import (
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
 
+	err := godotenv.Load("../.env")
+	
+	if err != nil {
+		log.Println("Failed to load env file")
+	}
+
 	app := fiber.New()
 
 	//connect database
-	db, err := gorm.Open(postgres.Open("host=ep-red-breeze-ac1rxwdc-pooler.sa-east-1.aws.neon.tech user=fume_artes_db_owner password=npg_qOzsu8tmTa4r dbname=fume_artes_db port=5432 sslmode=require"), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(os.Getenv("PG_STRING")), &gorm.Config{})
 
 	if err != nil {
 		println("Can't connect database")

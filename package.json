@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite  && server",
     "build": "vite build",
     "preview": "vite preview",
-    "server": "go run ./api/main.go"
+    "server": "./api/api"
   },
   "dependencies": {
     "@coders-tm/vue-number-format": "^3.35.4",
