@@ -4,55 +4,22 @@ import AppMain from "@/components/app/AppMain.vue";
 import AppPanel from "@/components/AppPanel.vue";
 import AlertItem from "@/components/AlertItem.vue";
 import AppTable from "@/components/AppTable.vue";
+import { instance } from "@/axios.js";
 
 export default {
     data() {
         return {
-            alerts: [
-                {
-                    user: "andersson793",
-                    date: "12/12/2001 10:23",
-                    body: "Any text !!!!",
-                },
-                {
-                    user: "andersson793",
-                    date: "12/12/2001 10:23",
-                    body: "Any text !!!!",
-                },
-                {
-                    user: "andersson793",
-                    date: "12/12/2001 10:23",
-                    body: "Any text !!!!",
-                },
-                {
-                    user: "andersson793",
-                    date: "12/12/2001 10:23",
-                    body: "Any text !!!!",
-                },
-                {
-                    user: "andersson793",
-                    date: "12/12/2001 10:23",
-                    body: "Any text !!!!",
-                },
-                {
-                    user: "andersson793",
-                    date: "12/12/2001 10:23",
-                    body: "Any text !!!!",
-                },
-                {
-                    user: "andersson793",
-                    date: "12/12/2001 10:23",
-                    body: "Any text !!!!",
-                },
-            ],
+            data: [],
         };
     },
     mounted() {
-        useWebsiteStore().currentPage = this.$route.name;
+        instance.get("/pending_services").then((response) => {
+            this.data = response.data;
+        });
     },
     methods: {
         removeAlert(index) {
-            this.alerts.splice(index, 1);
+            this.data.splice(index, 1);
         },
     },
     components: {
@@ -72,13 +39,13 @@ export default {
         </div>
 
         <AppPanel title_panel="Pending services" class="col-span-3">
-            <div class="overflow-y-scroll" v-if="alerts.length > 0">
+            <div class="overflow-y-scroll" v-if="data.length > 0">
                 <AlertItem
-                    v-for="(alert, index) in alerts"
+                    v-for="(data, index) in data"
                     :index="index"
-                    :user="alert.user"
-                    :date="alert.date"
-                    :body="alert.body"
+                    :user="data.user_name"
+                    :date="data.created_at"
+                    :body="data.description"
                     :remove="removeAlert"
                     :key="index"
                 />

@@ -1,104 +1,33 @@
 <script>
 import { EllipsisVerticalIcon } from "lucide-vue-next";
 import Pagination from "./Pagination.vue";
+import { instance } from "@/axios.js";
+
 export default {
     data() {
         return {
             table: {
                 headers: ["#", "Description", "Date", "Customer", "Value"],
-                itemsMenu: [
-                    {
-                        label: "Item menu",
-                        action: null,
-                    },
-                    {
-                        label: "Item menu",
-                        action: null,
-                    },
-                    {
-                        label: "Item menu",
-                        action: null,
-                    },
-                ],
-                items: [
-                    {
-                        id: 1,
-                        item: "Película fume parabrisa",
-                        date: "12/12/2001",
-                        customer: "FRIBOM",
-                        value: 230,
-
-                    },
-                    {
-                        id: 2,
-                        item: "Película fume parabrisa",
-                        date: "12/12/2001",
-                        customer: "FRIBOM",
-                        value: 230,
-
-                    },
-                    {
-                        id: 3,
-                        item: "Película fume parabrisa",
-                        date: "12/12/2001",
-                        customer: "FRIBOM",
-                        value: 230,
-
-                    },
-                    {
-                        id: 4,
-                        item: "Película fume parabrisa",
-                        date: "12/12/2001",
-                        customer: "FRIBOM",
-                        value: 230,
-
-                    },
-                    {
-                        id: 5,
-                        item: "Película fume parabrisa",
-                        date: "12/12/2001",
-                        customer: "FRIBOM",
-                        value: 230,
-
-                    },
-                    {
-                        id: 6,
-                        item: "Película fume parabrisa",
-                        date: "12/12/2001",
-                        customer: "FRIBOM",
-                        value: 230,
-
-                    },
-                    {
-                        id: 7,
-                        item: "Película fume parabrisa",
-                        date: "12/12/2001",
-                        customer: "FRIBOM",
-                        value: 230,
-
-                    },
-                    {
-                        id: 8,
-                        item: "Película fume parabrisa",
-                        date: "12/12/2001",
-                        customer: "FRIBOM",
-                        value: 230,
-
-                    },
-                ],
             },
-            currentPage: 0,
+            data: [],
+            page: 0,
         };
     },
+    mounted() {
+        instance.get("/orders").then((response) => {
+            this.data = response.data;
+        });
+    },
+
     methods: {
         changeCurrentPage(i) {
-            this.currentPage = i;
+            this.page = i;
         },
     },
     computed: {
-        TablePagination() {
+        PageSlice() {
             const itemsPerPage = 5;
-            const tableItems = this.table.items;
+            const tableItems = this.data;
 
             let pageItems = [];
 
@@ -115,7 +44,7 @@ export default {
 <template>
     <table class="table-auto w-full mb-5 border-collapse">
         <thead class="bg-blue-100">
-            <tr >
+            <tr>
                 <th
                     class="font-semibold whitespace-nowrap text-left p-4 border-y border-blue-red-100"
                     v-for="item in table.headers"
@@ -126,25 +55,33 @@ export default {
         </thead>
         <tbody>
             <tr
-                v-for="item in TablePagination[currentPage]"
-                :key="item.id"
+                v-for="(row, index) in data"
+                :key="row.id"
                 class="odd:bg-white even:bg-gray-100"
             >
                 <td class="font-semibold whitespace-nowrap text-left p-4">
-                    {{ item.id }}
+                    {{ index + 1 }}
                 </td>
                 <td class="font-semibold whitespace-nowrap text-left p-4">
-                    {{ item.item }}
+                    {{ row.description }}
                 </td>
                 <td class="font-semibold whitespace-nowrap text-left p-4">
-                    {{ item.date }}
+                    {{
+                        new Date(row.created_at).toLocaleString("pt-BR", {
+                            day: "numeric",
+                            month: "numeric",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                        })
+                    }}
                 </td>
                 <td class="font-semibold whitespace-nowrap text-left p-4">
-                    {{ item.customer }}
+                    {{ row.customer }}
                 </td>
 
                 <td class="font-semibold whitespace-nowrap text-left p-4">
-                  R$ {{ item.value }}
+                    R$ {{ row.total_items }}
                 </td>
             </tr>
         </tbody>
@@ -152,14 +89,9 @@ export default {
 
     <div class="flex justify-center">
         <Pagination
-            :pages="TablePagination.length"
-            :currentPage="currentPage"
+            :pages="PageSlice.length"
+            :currentPage="page"
             :changeCurrentPage="changeCurrentPage"
         />
     </div>
 </template>
-<style scoped>
-table{
-
-}
-</style>
