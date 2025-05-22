@@ -14,9 +14,15 @@ export default {
         };
     },
     mounted() {
-        instance.get("/orders").then((response) => {
-            this.data = response.data;
-        });
+        instance
+            .get("/api/orders", {
+                headers: {
+                    Authorization: sessionStorage.getItem("token"),
+                },
+            })
+            .then((response) => {
+                this.data = response.data;
+            });
     },
 
     methods: {

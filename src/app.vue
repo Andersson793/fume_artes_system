@@ -1,20 +1,21 @@
 <script>
-import { RouterLink, RouterView } from "vue-router";
-import MenuItem from "./components/MenuItem.vue";
+import { RouterLink, RouterView, routerViewLocationKey } from "vue-router";
+import MenuItem from "./components/MenuOption.vue";
 import { AvatarFallback, AvatarImage, AvatarRoot } from "reka-ui";
 import { useWebsiteStore } from "@stores/store.js";
+import { Key } from "lucide-vue-next";
+import { KeepAlive } from "vue";
+import Login from "@/pages/login.vue";
 
 export default {
     data() {
         return {
+            store: useWebsiteStore(),
             enabled: true,
-            currentPage: useWebsiteStore().currentPage,
         };
     },
 
-    mounted() {
-        this.currentPage = this.$route.name;
-    },
+    mounted() {},
     components: {
         MenuItem,
         RouterLink,
@@ -22,11 +23,16 @@ export default {
         AvatarRoot,
         AvatarImage,
         AvatarFallback,
+        Login,
+        KeepAlive,
     },
 };
 </script>
 <template>
-    <div class="grid grid-cols-7 max-h-screen h-screen w-full">
+    <div
+        class="grid grid-cols-7 max-h-screen h-screen w-full"
+        v-if="store.loged"
+    >
         <div>
             <div class="border-r-solid border-gray-2 h-full">
                 <div
@@ -113,20 +119,15 @@ export default {
         <div class="col-span-6 overflow-scroll max-h-screen">
             <header class="px-10 flex justify-between items-center">
                 <h2>Fume Artes System</h2>
+            </header>
 
-                <!--
-              <div class="relative">
-                <div class="i-basil:notification-outline text-3xl"></div>
-
-                    <div class="bg-red-300 w-6 h-6 rounded-full flex justify-center items-center text-sm absolute ">
-                      12
-                    </div>
-
-              </div>
-
-            --></header>
-
-            <RouterView />
+            <router-view v-slot="{ Component }">
+                <KeepAlive>
+                    <component :is="Component" />
+                </KeepAlive>
+            </router-view>
         </div>
     </div>
+
+    <Login v-else />
 </template>

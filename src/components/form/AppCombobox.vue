@@ -1,5 +1,5 @@
 <script>
-import AppInput from "./form/AppInput.vue";
+import AppInput from "./AppInput.vue";
 
 export default {
     props: {

@@ -1,6 +1,6 @@
 <script>
 import AppPanel from "@/components/AppPanel.vue";
-import AppMain from "@/components/app/AppMain.vue";
+import AppMain from "@/components/AppMain.vue";
 
 import { instance } from "@/axios.js";
 
@@ -27,13 +27,25 @@ export default {
     },
 
     mounted() {
-        instance.get("/users").then((response) => {
-            this.users.data = response.data;
-        });
+        instance
+            .get("/api/users", {
+                headers: {
+                    Authorization: sessionStorage.getItem("token"),
+                },
+            })
+            .then((response) => {
+                this.users.data = response.data;
+            });
 
-        instance.get("/customers").then((response) => {
-            this.customers.data = response.data;
-        });
+        instance
+            .get("/api/customers", {
+                headers: {
+                    Authorization: sessionStorage.getItem("token"),
+                },
+            })
+            .then((response) => {
+                this.customers.data = response.data;
+            });
     },
     components: {
         AppPanel,

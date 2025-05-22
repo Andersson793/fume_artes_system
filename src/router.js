@@ -4,9 +4,11 @@ import Dashboard from "./pages/dashboard.vue";
 import Manager from "./pages/manager.vue";
 import Config from "./pages/config.vue";
 import Account from "./pages/account.vue";
-import Home from "./pages/index.vue";
+import Home from "./pages/home.vue";
+//import Login from "./pages/login.vue";
 
 const routes = [
+  // { path: "/", component: Login },
   { path: "/", component: Home },
   { path: "/dashboard", component: Dashboard },
   { path: "/manager", component: Manager },

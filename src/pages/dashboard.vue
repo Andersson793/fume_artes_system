@@ -13,8 +13,8 @@ import {
 } from "chart.js";
 
 import { Doughnut, Bar } from "vue-chartjs";
-import { useWebsiteStore } from "../stores/store";
-import AppPanel from "../components/AppPanel.vue";
+import { useWebsiteStore } from "@/stores/store";
+import AppPanel from "@/components/AppPanel.vue";
 
 Chart.register(
     DoughnutController,
@@ -40,7 +40,10 @@ export default {
                         datasets: [
                             {
                                 data: [200, 50],
-                                backgroundColor: ["oklch(72.3% 0.219 149.579)", "oklch(64.5% 0.246 16.439)"],
+                                backgroundColor: [
+                                    "oklch(72.3% 0.219 149.579)",
+                                    "oklch(64.5% 0.246 16.439)",
+                                ],
                             },
                         ],
                         labels: ["Too", "Bar"],
@@ -108,9 +111,7 @@ export default {
             },
         };
     },
-    mounted() {
-        useWebsiteStore().currentPage = this.$route.name;
-    },
+    mounted() {},
     components: { Doughnut, Bar, AppPanel },
 };
 </script>

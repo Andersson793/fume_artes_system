@@ -1,10 +1,10 @@
 <script>
-import AppMain from "@/components/app/AppMain.vue";
+import AppMain from "@/components/AppMain.vue";
 import AppButton from "@/components/form/AppButton.vue";
 import AppInput from "@/components/form/AppInput.vue";
 import AppPanel from "@/components/AppPanel.vue";
 import { useWebsiteStore } from "@stores/store.js";
-import { instance } from "@/axios";
+import { instance } from "@/axios.js";
 
 export default {
     data() {
@@ -15,7 +15,11 @@ export default {
     },
     mounted() {
         instance
-            .get("/users/71e8f588-30ae-4fe3-b98f-0f31242de31f")
+            .get("/api/users/71e8f588-30ae-4fe3-b98f-0f31242de31f", {
+                headers: {
+                    Authorization: sessionStorage.getItem("token"),
+                },
+            })
             .then((response) => {
                 this.data = response.data;
             });

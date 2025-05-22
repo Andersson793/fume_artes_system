@@ -1,6 +1,5 @@
 <script>
-import { useWebsiteStore } from "@/stores/store";
-import AppMain from "@/components/app/AppMain.vue";
+import AppMain from "@/components/AppMain.vue";
 import AppPanel from "@/components/AppPanel.vue";
 import AlertItem from "@/components/AlertItem.vue";
 import AppTable from "@/components/AppTable.vue";
@@ -13,14 +12,20 @@ export default {
         };
     },
     mounted() {
-        instance.get("/pending_services").then((response) => {
-            this.data = response.data;
-        });
+        //removed function
+        /*
+          instance.get("/api/pending_services").then((response) => {
+              this.data = response.data;
+          });
+        */
     },
     methods: {
-        removeAlert(index) {
-            this.data.splice(index, 1);
-        },
+        /*
+          removeAlert(index) {
+              this.data.splice(index, 1);
+          },
+
+        */
     },
     components: {
         AppMain,
@@ -40,15 +45,20 @@ export default {
 
         <AppPanel title_panel="Pending services" class="col-span-3">
             <div class="overflow-y-scroll" v-if="data.length > 0">
-                <AlertItem
-                    v-for="(data, index) in data"
-                    :index="index"
-                    :user="data.user_name"
-                    :date="data.created_at"
-                    :body="data.description"
-                    :remove="removeAlert"
-                    :key="index"
-                />
+                <p>Outra coisa</p>
+                <p>E altere essa fonte !</p>
+
+                <!--
+                    <AlertItem
+                        v-for="(data, index) in data"
+                        :index="index"
+                        :user="data.user_name"
+                        :date="data.created_at"
+                        :body="data.description"
+                        :remove="removeAlert"
+                        :key="index"
+                    />
+                -->
             </div>
 
             <div v-else class="text-center font-bold">Nothing here !</div>

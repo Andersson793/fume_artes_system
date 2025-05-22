@@ -32,5 +32,7 @@ export default {
         >
             {{ index + 1 }}
         </div>
+
+        <div>{{ $props.currentPage }} of {{ $props.pages }}</div>
     </div>
 </template>

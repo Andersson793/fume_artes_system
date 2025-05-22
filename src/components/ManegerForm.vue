@@ -171,7 +171,7 @@ export default {
                 </tfoot>
             </table>
 
-            <div class="">
+            <div>
                 <label for="customer">Customer</label>
                 <br />
                 <AppInput
@@ -180,17 +180,6 @@ export default {
                     v-model="form.customer"
                     placeholder="Customer name"
                 />
-
-                <div class="mt-5">
-                    <label for="customer_cnpj">CNPJ</label>
-                    <br />
-                    <AppInput
-                        id="customer_cnpj"
-                        class="w-78"
-                        v-model="form.customer_cnpj"
-                        placeholder="00000000-00/0000-0"
-                    />
-                </div>
             </div>
 
             <div class="grid grid-col-1">
