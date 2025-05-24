@@ -5,6 +5,9 @@ export default {
             type: Number,
             require: true,
         },
+        items: {
+            type: Array,
+        },
         currentPage: {
             type: Number,
             default: 0,
@@ -23,7 +26,7 @@ export default {
 };
 </script>
 <template>
-    <div class="inline-flex">
+    <div class="flex items-center">
         <div
             v-for="(item, index) in $props.pages"
             class="hover:bg-blue-200 w-8 h-8 mx-2 rounded-full cursor-pointer select-none flex justify-center items-center"
@@ -33,6 +36,6 @@ export default {
             {{ index + 1 }}
         </div>
 
-        <div>{{ $props.currentPage }} of {{ $props.pages }}</div>
+        <div>{{ $props.items.length }} Items</div>
     </div>
 </template>

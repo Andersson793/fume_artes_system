@@ -3,13 +3,9 @@ import { useId } from "vue";
 
 export const useWebsiteStore = defineStore("store", {
   state: () => ({
+    name: "",
     id: useId(),
-    currentPage: "any",
     loged: false,
+    email: "",
   }),
-  actions: {
-    changePage(value) {
-      this.currentPage = value;
-    },
-  },
 });

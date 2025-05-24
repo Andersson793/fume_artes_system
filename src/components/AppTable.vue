@@ -96,6 +96,7 @@ export default {
     <div class="flex justify-center">
         <Pagination
             :pages="PageSlice.length"
+            :items="data"
             :currentPage="page"
             :changeCurrentPage="changeCurrentPage"
         />

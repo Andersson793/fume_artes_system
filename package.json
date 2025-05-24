@@ -9,16 +9,16 @@
   },
   "dependencies": {
     "@coders-tm/vue-number-format": "^3.35.4",
-    "@vitejs/plugin-vue": "^5.2.3",
+    "@vitejs/plugin-vue": "^5.2.4",
     "chart.js": "^4.4.9",
     "lucide-vue-next": "^0.484.0",
     "pinia": "^3.0.2",
-    "reka-ui": "^2.2.0",
+    "reka-ui": "^2.2.1",
     "unocss": "66.1.0-beta.6",
-    "vite": "^6.3.2",
-    "vue": "^3.5.13",
+    "vite": "^6.3.5",
+    "vue": "^3.5.14",
     "vue-chartjs": "^5.3.2",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "@iconify-json/basil": "^1.2.2",

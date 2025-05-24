@@ -11,8 +11,15 @@ export default {
     data() {
         return {
             store: useWebsiteStore(),
-            enabled: true,
         };
+    },
+
+    methods: {
+        Logout() {
+            this.store.$reset();
+
+            sessionStorage.clear();
+        },
     },
 
     mounted() {},
@@ -48,12 +55,13 @@ export default {
                         <AvatarFallback />
                     </AvatarRoot>
 
-                    <p>andersson793</p>
+                    <p>{{ store.name }}</p>
 
                     <input
                         type="button"
-                        class="bg-white hover:bg-red-100 text-red rounded-md p-1 w-fit h-fit font-bold border-solid border-1 border-red cursor-pointer inline-flex items-center"
+                        class="bg-red-400 hover:bg-red-300 text-white rounded-sm p-2 w-fit h-fit font-bold border-none cursor-pointer inline-flex items-center"
                         value="Logout"
+                        @click="Logout"
                     />
                 </div>
 

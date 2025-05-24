@@ -3,7 +3,7 @@ import AppInput from "@components/form/AppInput";
 import AppButton from "@components/form/AppButton";
 import { instance } from "@/axios.js";
 import { useWebsiteStore } from "@stores/store.js";
-import AInput from "../components/form/AInput.vue";
+import axios from "axios";
 
 export default {
     data() {
@@ -13,24 +13,47 @@ export default {
         };
     },
     methods: {
-        async Login() {
-            await instance
-                .get("/login", {
-                    data: {
+        Login() {
+            instance
+                .post(
+                    "/login",
+                    {
                         email: this.email,
                         password: this.password,
                     },
-                })
+                    {
+                        /*
+                        data: {
+                            email: this.email,
+                            password: this.password,
+                        },
+
+                        */
+
+                        headers: {
+                            //"Access-Control-Allow-Origin": "*",
+                            //here
+                            //Origin: "http://localhost:5173",
+                        },
+                    },
+                )
                 .then((response) => {
                     if (response.status == 200) {
-                        sessionStorage.setItem("token", response.data);
+                        sessionStorage.setItem("token", response.data.token);
+
+                        //axios.defaults.headers.common["Authorization"] = response.data;
+
+                        console.log(response.data.user_name);
+
                         let store = useWebsiteStore();
 
                         store.$patch({
                             loged: true,
+                            email: response.data.user_email,
+                            name: response.data.user_name,
                         });
-
-                        console.log(store.loged);
+                    } else {
+                        alert("Login Failed");
                     }
                 });
         },
@@ -38,7 +61,6 @@ export default {
     components: {
         AppInput,
         AppButton,
-        AInput,
     },
 };
 </script>
@@ -59,11 +81,11 @@ export default {
                 <div class="mt-10">
                     <label>Password</label>
                     <br />
-                    <AInput v-model="password" placeholder="Password" />
+                    <AppInput v-model="password" placeholder="Password" />
                 </div>
 
                 <div class="text-center mt-10">
-                    <AppButton class="bg-blue-300" @click="Login"
+                    <AppButton class="bg-blue-400" @click="Login"
                         >Entrar</AppButton
                     >
                 </div>
