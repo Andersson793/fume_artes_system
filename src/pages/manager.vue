@@ -72,17 +72,20 @@ export default {
 
         postData() {
             instance
-                .post("/api/orders", {
-                    data: {
-                        customer: this.form.combobox,
+                .post(
+                    "/api/orders",
+                    {
+                        customer: this.form.customer,
                         user_id: "71e8f588-30ae-4fe3-b98f-0f31242de31f",
                         description: this.form.description,
                         order_items: this.form.items.items,
                     },
-                    headers: {
-                        Authorization: sessionStorage.getItem("token"),
+                    {
+                        headers: {
+                            Authorization: sessionStorage.getItem("token"),
+                        },
                     },
-                })
+                )
                 .then((response) => {
                     alert(response);
                 });

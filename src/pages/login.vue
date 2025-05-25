@@ -3,7 +3,6 @@ import AppInput from "@components/form/AppInput";
 import AppButton from "@components/form/AppButton";
 import { instance } from "@/axios.js";
 import { useWebsiteStore } from "@stores/store.js";
-import axios from "axios";
 
 export default {
     data() {
@@ -15,33 +14,13 @@ export default {
     methods: {
         Login() {
             instance
-                .post(
-                    "/login",
-                    {
-                        email: this.email,
-                        password: this.password,
-                    },
-                    {
-                        /*
-                        data: {
-                            email: this.email,
-                            password: this.password,
-                        },
-
-                        */
-
-                        headers: {
-                            //"Access-Control-Allow-Origin": "*",
-                            //here
-                            //Origin: "http://localhost:5173",
-                        },
-                    },
-                )
+                .post("/login", {
+                    email: this.email,
+                    password: this.password,
+                })
                 .then((response) => {
                     if (response.status == 200) {
                         sessionStorage.setItem("token", response.data.token);
-
-                        //axios.defaults.headers.common["Authorization"] = response.data;
 
                         console.log(response.data.user_name);
 
