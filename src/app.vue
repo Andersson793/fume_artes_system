@@ -103,10 +103,10 @@ export default {
                         <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div
-                                    class="i-basil:settings-outline text-2xl pr-5"
+                                    class="i-basil:box-outline text-2xl pr-5"
                                 ></div>
                             </template>
-                            Configs
+                            Tables
                         </MenuItem>
                     </RouterLink>
 
