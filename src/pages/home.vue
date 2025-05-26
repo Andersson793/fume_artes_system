@@ -9,15 +9,12 @@ import { instance } from "@/axios.js";
 export default {
     data() {
         return {
-            data: [],
+            result: [],
+            loading: false,
             store: useWebsiteStore(),
         };
     },
     mounted() {
-        this.store.$patch({
-            user_name: this.getCookie("name"),
-        });
-
         instance
             .get("/api/hgbrasil", {
                 headers: {
@@ -25,9 +22,9 @@ export default {
                 },
             })
             .then((resp) => {
-                this.data = resp.data.results;
+                this.result = resp.data.results;
 
-                console.log(this.data);
+                this.loading = true;
             });
     },
     methods: {
@@ -36,13 +33,7 @@ export default {
               this.data.splice(index, 1);
           },
 
-*/
-
-        getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(";").shift();
-        },
+        */
     },
     components: {
         AppMain,
@@ -62,54 +53,54 @@ export default {
         </div>
 
         <AppPanel title_panel="Financial information" class="col-span-2">
-            <div>
+            <div v-if="loading">
                 <p class="text-lg">
                     <span class="text-bold">CDI: </span>
-                    {{ data.taxes[0].cdi }}
+                    {{ result.taxes[0].cdi }}
                 </p>
                 <p class="text-lg">
                     <span class="text-bold">SELIC: </span>
-                    {{ data.taxes[0].selic }}
+                    {{ result.taxes[0].selic }}
                 </p>
 
                 <p class="text-lg">
                     <span class="text-bold">IBOVESPA: </span>
-                    {{ data.stocks.IBOVESPA.points }}
+                    {{ result.stocks.IBOVESPA.points }}
                     <span
-                        v-if="data.stocks.IBOVESPA.variation > 0"
+                        v-if="result.stocks.IBOVESPA.variation > 0"
                         class="text-sm text-green-500"
-                        >{{ data.stocks.IBOVESPA.variation }}
+                        >{{ result.stocks.IBOVESPA.variation }}
                     </span>
                     <span v-else class="text-sm text-red-400">{{
-                        data.stocks.IBOVESPA.variation
+                        result.stocks.IBOVESPA.variation
                     }}</span>
                 </p>
 
                 <p class="text-lg">
                     <span class="text-bold">Dolar hoje: </span>
-                    {{ data.currencies.USD.buy }}
+                    {{ result.currencies.USD.buy }}
 
                     <span
-                        v-if="data.currencies.USD.variation > 0"
+                        v-if="result.currencies.USD.variation > 0"
                         class="text-sm text-green-500"
-                        >{{ data.currencies.USD.variation }}</span
+                        >{{ result.currencies.USD.variation }}</span
                     >
                     <span v-else class="text-sm text-red-400">{{
-                        data.currencies.USD.variation
+                        result.currencies.USD.variation
                     }}</span>
                 </p>
 
                 <p class="text-lg">
                     <span class="text-bold">BTC: </span>
-                    {{ data.bitcoin.bitstamp.buy }}
+                    {{ result.bitcoin.bitstamp.buy }}
 
                     <span
-                        v-if="data.bitcoin.bitstamp.variation > 0"
+                        v-if="result.bitcoin.bitstamp.variation > 0"
                         class="text-sm text-green-500"
-                        >{{ data.bitcoin.bitstamp.variation }}</span
+                        >{{ result.bitcoin.bitstamp.variation }}</span
                     >
                     <span v-else class="text-sm text-red-400">{{
-                        data.bitcoin.bitstamp.variation
+                        result.bitcoin.bitstamp.variation
                     }}</span>
                 </p>
             </div>
