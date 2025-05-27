@@ -15,17 +15,7 @@ export default {
         };
     },
     mounted() {
-        instance
-            .get("/api/hgbrasil", {
-                headers: {
-                    Authorization: sessionStorage.getItem("token"),
-                },
-            })
-            .then((resp) => {
-                this.result = resp.data.results;
-
-                this.loading = true;
-            });
+        this.getData();
     },
     methods: {
         /*
@@ -34,6 +24,20 @@ export default {
           },
 
         */
+
+        async getData() {
+            await instance
+                .get("/api/hgbrasil", {
+                    headers: {
+                        Authorization: sessionStorage.getItem("token"),
+                    },
+                })
+                .then((resp) => {
+                    this.result = resp.data.results;
+
+                    this.loading = true;
+                });
+        },
     },
     components: {
         AppMain,
@@ -46,7 +50,7 @@ export default {
 <template>
     <AppMain>
         <div class="col-span-6">
-            <AppPanel title_panel="Title panel">
+            <AppPanel title_panel="Title panel" :reload="getData">
                 <!-- rework on AppTable component-->
                 <AppTable />
             </AppPanel>
