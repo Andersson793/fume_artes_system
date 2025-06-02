@@ -9,23 +9,35 @@ import { instance } from "@/axios.js";
 export default {
     data() {
         return {
-            result: [],
+            financialData: [],
+            ordersData: [],
+            tableHeaders: ["#", "Description", "Date", "Customer", "Value", ""],
             loading: false,
             store: useWebsiteStore(),
         };
     },
     mounted() {
-        this.getData();
+        this.getFinancial();
+        this.getOrders();
     },
     methods: {
-        /*
-          removeAlert(index) {
-              this.data.splice(index, 1);
-          },
+        async removeItem(id) {
+            await instance
+                .delete(`/api/orders/${id}`, {
+                    headers: {
+                        Authorization: sessionStorage.getItem("token"),
+                    },
+                })
+                .then((response) => {
+                    if (response.status == 200) {
+                        this.getOrders();
+                    } else {
+                        alert("error");
+                    }
+                });
+        },
 
-        */
-
-        async getData() {
+        async getFinancial() {
             await instance
                 .get("/api/hgbrasil", {
                     headers: {
@@ -33,9 +45,21 @@ export default {
                     },
                 })
                 .then((resp) => {
-                    this.result = resp.data.results;
+                    this.financialData = resp.data.results;
 
                     this.loading = true;
+                });
+        },
+
+        async getOrders() {
+            await instance
+                .get("/api/orders", {
+                    headers: {
+                        Authorization: sessionStorage.getItem("token"),
+                    },
+                })
+                .then((resp) => {
+                    this.ordersData = resp.data;
                 });
         },
     },
@@ -50,61 +74,68 @@ export default {
 <template>
     <AppMain>
         <div class="col-span-6">
-            <AppPanel title_panel="Title panel" :reload="getData">
-                <!-- rework on AppTable component-->
-                <AppTable />
+            <AppPanel title_panel="Title panel" :reload="getOrders">
+                <AppTable
+                    :data="ordersData"
+                    :headers="tableHeaders"
+                    :removeItem="removeItem"
+                />
             </AppPanel>
         </div>
 
-        <AppPanel title_panel="Financial information" class="col-span-2">
+        <AppPanel
+            title_panel="Financial information"
+            class="col-span-2"
+            :reload="getFinancial"
+        >
             <div v-if="loading">
                 <p class="text-lg">
                     <span class="text-bold">CDI: </span>
-                    {{ result.taxes[0].cdi }}
+                    {{ financialData.taxes[0].cdi }}
                 </p>
                 <p class="text-lg">
                     <span class="text-bold">SELIC: </span>
-                    {{ result.taxes[0].selic }}
+                    {{ financialData.taxes[0].selic }}
                 </p>
 
                 <p class="text-lg">
                     <span class="text-bold">IBOVESPA: </span>
-                    {{ result.stocks.IBOVESPA.points }}
+                    {{ financialData.stocks.IBOVESPA.points }}
                     <span
-                        v-if="result.stocks.IBOVESPA.variation > 0"
+                        v-if="financialData.stocks.IBOVESPA.variation > 0"
                         class="text-sm text-green-500"
-                        >{{ result.stocks.IBOVESPA.variation }}
+                        >{{ financialData.stocks.IBOVESPA.variation }}
                     </span>
                     <span v-else class="text-sm text-red-400">{{
-                        result.stocks.IBOVESPA.variation
+                        financialData.stocks.IBOVESPA.variation
                     }}</span>
                 </p>
 
                 <p class="text-lg">
                     <span class="text-bold">Dolar hoje: </span>
-                    {{ result.currencies.USD.buy }}
+                    {{ financialData.currencies.USD.buy }}
 
                     <span
-                        v-if="result.currencies.USD.variation > 0"
+                        v-if="financialData.currencies.USD.variation > 0"
                         class="text-sm text-green-500"
-                        >{{ result.currencies.USD.variation }}</span
+                        >{{ financialData.currencies.USD.variation }}</span
                     >
                     <span v-else class="text-sm text-red-400">{{
-                        result.currencies.USD.variation
+                        financialData.currencies.USD.variation
                     }}</span>
                 </p>
 
                 <p class="text-lg">
                     <span class="text-bold">BTC: </span>
-                    {{ result.bitcoin.bitstamp.buy }}
+                    {{ financialData.bitcoin.bitstamp.buy }}
 
                     <span
-                        v-if="result.bitcoin.bitstamp.variation > 0"
+                        v-if="financialData.bitcoin.bitstamp.variation > 0"
                         class="text-sm text-green-500"
-                        >{{ result.bitcoin.bitstamp.variation }}</span
+                        >{{ financialData.bitcoin.bitstamp.variation }}</span
                     >
                     <span v-else class="text-sm text-red-400">{{
-                        result.bitcoin.bitstamp.variation
+                        financialData.bitcoin.bitstamp.variation
                     }}</span>
                 </p>
             </div>

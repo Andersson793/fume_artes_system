@@ -70,6 +70,10 @@ export default {
             this.form.price = 0;
         },
 
+        removeItem(index) {
+            this.form.items.items.splice(index, 1);
+        },
+
         postData() {
             instance
                 .post(
@@ -86,20 +90,10 @@ export default {
                         },
                     },
                 )
-                .then((response) => {
-                    alert(response);
+                .then(() => {
+                    this.clearForm();
                 });
         },
-
-        /*
-
-        //adicionar removeItem()  !!!!!!!!!
-
-        removeTag(index) {
-            this.form.tags.splice(index, 1);
-        },
-
-        */
 
         saveForm() {
             this.clearForm();
@@ -149,18 +143,23 @@ export default {
                         <tr>
                             <th class="text-left py-3 pl-3">Item</th>
                             <th>Price</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <template v-if="form.items.items.length > 0">
                             <tr
-                                v-for="item in form.items.items"
+                                v-for="(item, index) in form.items.items"
                                 class="odd:bg-white even:bg-gray-100"
                             >
                                 <td class="pl-3">{{ item.name }}</td>
                                 <td class="text-center py-3">
                                     R$ {{ item.price }}
                                 </td>
+                                <td
+                                    @click="removeItem(index)"
+                                    class="i-basil:cross-outline text-2xl cursor-pointer"
+                                ></td>
                             </tr>
                         </template>
 
@@ -176,6 +175,7 @@ export default {
                             <td class="text-center">
                                 R$ {{ form.items.total }}
                             </td>
+                            <td></td>
                         </tr>
                     </tfoot>
                 </table>

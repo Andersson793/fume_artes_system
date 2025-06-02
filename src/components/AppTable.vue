@@ -1,19 +1,25 @@
 <script>
-import { EllipsisVerticalIcon } from "lucide-vue-next";
 import Pagination from "./Pagination.vue";
-import { instance } from "@/axios.js";
+//import { instance } from "@/axios.js";
 
 export default {
     data() {
         return {
-            table: {
-                headers: ["#", "Description", "Date", "Customer", "Value"],
-            },
-            data: [],
+            //get headers by props
+            //table: {
+            //    headers: ["#", "Description", "Date", "Customer", "Value", ""],
+            //},
+            //data: [],
             page: 0,
         };
     },
+    props: {
+        data: Array,
+        headers: Array,
+        removeItem: Function,
+    },
     mounted() {
+        /*
         instance
             .get("/api/orders", {
                 headers: {
@@ -23,17 +29,34 @@ export default {
             .then((response) => {
                 this.data = response.data;
             });
+        */
     },
 
     methods: {
         changeCurrentPage(i) {
             this.page = i;
         },
+
+        /*
+        removeItem(id) {
+            instance
+                .delete(`/api/orders/${id}`, {
+                    headers: {
+                        Authorization: sessionStorage.getItem("token"),
+                    },
+                })
+                .then((response) => {
+                    alert(response.message);
+
+                    //reload table
+                });
+        },
+        */
     },
     computed: {
         PageSlice() {
             const itemsPerPage = 5;
-            const tableItems = this.data;
+            const tableItems = this.$props.data;
 
             let pageItems = [];
 
@@ -44,7 +67,7 @@ export default {
             return pageItems;
         },
     },
-    components: { EllipsisVerticalIcon, Pagination },
+    components: { Pagination },
 };
 </script>
 <template>
@@ -53,7 +76,7 @@ export default {
             <tr>
                 <th
                     class="font-semibold whitespace-nowrap text-left p-4 border-y border-blue-red-100"
-                    v-for="item in table.headers"
+                    v-for="item in $props.headers"
                 >
                     {{ item }}
                 </th>
@@ -61,7 +84,7 @@ export default {
         </thead>
         <tbody>
             <tr
-                v-for="(row, index) in data"
+                v-for="(row, index) in $props.data"
                 :key="row.id"
                 class="odd:bg-white even:bg-gray-100"
             >
@@ -89,6 +112,11 @@ export default {
                 <td class="font-semibold whitespace-nowrap text-left p-4">
                     R$ {{ row.total_items }}
                 </td>
+                <td @click="$props.removeItem(row.id)">
+                    <div
+                        class="i-basil:trash-alt-solid text-2xl text-red cursor-pointer"
+                    ></div>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -96,7 +124,7 @@ export default {
     <div class="flex justify-center">
         <Pagination
             :pages="PageSlice.length"
-            :items="data"
+            :items="$props.data"
             :currentPage="page"
             :changeCurrentPage="changeCurrentPage"
         />
