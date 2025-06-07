@@ -13,7 +13,7 @@ import {
 } from "chart.js";
 
 import { Doughnut, Bar } from "vue-chartjs";
-import { useWebsiteStore } from "@/stores/store";
+import { instance } from "@/axios.js";
 import AppPanel from "@/components/AppPanel.vue";
 
 Chart.register(
@@ -70,21 +70,11 @@ export default {
                             "marco",
                             "abril",
                             "maio",
-                            "junio",
-                            "julio",
-                            "agosto",
-                            "setembro",
-                            "outubro",
-                            "novembro",
-                            "dezembro",
                         ],
 
                         datasets: [
                             {
-                                data: [
-                                    10, 14, 20, 30, 10, 14, 20, 31, 14, 20, 30,
-                                    45,
-                                ],
+                                data: [],
                                 backgroundColor: [
                                     "oklch(70.7% 0.165 254.624)",
                                     "oklch(88.2% 0.059 254.128)",
@@ -109,23 +99,64 @@ export default {
                     },
                 },
             },
+            data: [],
+            loaded: false,
         };
     },
-    mounted() {},
+    mounted() {
+        this.getData();
+    },
+    methods: {
+        async getData() {
+            await instance
+                .get("/api/historical_data", {
+                    headers: {
+                        Authorization: sessionStorage.getItem("token"),
+                    },
+                })
+                .then((resp) => {
+                    var indices = [];
+                    var labels = [];
+
+                    resp.data.map((element) => {
+                        indices.push(element.TotalItems);
+
+                        let day = new Date(
+                            element.Year,
+                            element.Month,
+                            element.Day,
+                        );
+
+                        //labels.push(element.Day + "/" + element.Month);
+                        labels.push(
+                            day.toLocaleDateString("pt-BR", {
+                                month: "short",
+                                day: "numeric",
+                            }),
+                        );
+                    });
+
+                    this.charts.Bar.data.datasets[0].data = indices.reverse();
+                    this.charts.Bar.data.labels = labels.reverse();
+
+                    this.loaded = true;
+                });
+        },
+    },
     components: { Doughnut, Bar, AppPanel },
 };
 </script>
 <template>
-    <main class="grid grid-cols-4 gap-10 p-10">
-        <AppPanel title_panel="Title panel" class="col-span-3 row-span-2">
-            <Bar
-                :data="charts.Bar.data"
-                :options="charts.Bar.options"
-                class="col-span-5"
-            />
+    <main class="grid grid-cols-7 gap-10 p-10">
+        <AppPanel
+            title_panel="Title panel"
+            class="col-span-5 col-start-2"
+            v-if="loaded"
+        >
+            <Bar :data="charts.Bar.data" :options="charts.Bar.options" />
         </AppPanel>
 
-        <AppPanel title_panel="Title panel">
+        <AppPanel title_panel="Title panel" v-if="false">
             <Doughnut
                 :data="charts.Doughnut.data"
                 :options="charts.Doughnut.options"
