@@ -123,7 +123,7 @@ export default {
 
                         let day = new Date(
                             element.Year,
-                            element.Month,
+                            element.Month - 1,
                             element.Day,
                         );
 

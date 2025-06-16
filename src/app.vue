@@ -99,7 +99,7 @@ export default {
                         </MenuItem>
                     </RouterLink>
 
-                    <RouterLink to="/config">
+                    <RouterLink to="/tables">
                         <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div

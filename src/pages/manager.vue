@@ -3,7 +3,23 @@ import AppButton from "@components/form/AppButton.vue";
 import AppInput from "@components/form/AppInput.vue";
 import AppCombobox from "@components/form/AppCombobox.vue";
 import AppPanel from "@components/AppPanel.vue";
-import { component as VueNumber } from "@coders-tm/vue-number-format";
+import {
+    ComboboxAnchor,
+    ComboboxArrow,
+    ComboboxCancel,
+    ComboboxContent,
+    ComboboxGroup,
+    ComboboxInput,
+    ComboboxItem,
+    ComboboxItemIndicator,
+    ComboboxLabel,
+    ComboboxPortal,
+    ComboboxRoot,
+    ComboboxSeparator,
+    ComboboxTrigger,
+    ComboboxViewport,
+} from "reka-ui";
+import { options, component as VueNumber } from "@coders-tm/vue-number-format";
 import { instance } from "@/axios.js";
 
 export default {
@@ -29,6 +45,24 @@ export default {
                 masked: false,
             },
             data: undefined,
+            options: [
+                "Pel. fumê 35% parabrisa",
+                "Pel. fumê 25% parabrisa",
+                "Pel. fumê 50% parabrisa",
+                "Pel. fumê 50% portas",
+                "Pel. fumê 75% portas",
+                "Pel. fumê 100% portas",
+                "Pel. fumê degradê 100% portas",
+                "Adesivo tara",
+                "Adesivo de parabrisa",
+                "Adesivo '25,50' para placa zebrada",
+                "Faixa de parabrisa",
+                "Restauração e adesivação de placa zebrada",
+                "Adesivo impresso",
+                "adesivo de recorte",
+            ],
+            selected_option: options[0],
+            new_option: "",
         };
     },
 
@@ -105,6 +139,20 @@ export default {
         VueNumber,
         AppCombobox,
         AppPanel,
+        ComboboxAnchor,
+        ComboboxArrow,
+        ComboboxCancel,
+        ComboboxContent,
+        ComboboxGroup,
+        ComboboxInput,
+        ComboboxItem,
+        ComboboxItemIndicator,
+        ComboboxLabel,
+        ComboboxPortal,
+        ComboboxRoot,
+        ComboboxSeparator,
+        ComboboxTrigger,
+        ComboboxViewport,
     },
 };
 </script>
@@ -113,11 +161,39 @@ export default {
         <AppPanel title_panel="Create service" class="col-span-2 col-start-2">
             <div class="grid grid-col-1 gap-30">
                 <div class="grid grid-col-1">
-                    <AppInput
-                        placeholder="Item descrition"
-                        class="col-span-1"
-                        v-model="form.combobox"
-                    />
+                    <ComboboxRoot v-model="form.combobox" class="relative">
+                        <ComboboxInput
+                            class="w-72 px-2 py-4 mt-3 rounded-sm outline-none border-none bg-gray-100 font-semibold"
+                            placeholder="Item descrition"
+                            v-model="new_option"
+                        />
+
+                        <ComboboxContent
+                            class="absolute z-10 mt-1 bg-white border-solid border-gray-300 border-0.5 rounded-md max-h-50"
+                        >
+                            <ComboboxViewport class="grid grid-cols-1 gap-1">
+                                <div
+                                    class="cursor-pointer hover:bg-blue-100 py-2 px-2"
+                                    :value="new_option"
+                                    @click="
+                                        form.combobox = new_option;
+                                        options.push(new_option);
+                                    "
+                                >
+                                    Criar {{ new_option }}
+                                </div>
+
+                                <ComboboxItem
+                                    v-for="(option, index) in options"
+                                    :key="index"
+                                    :value="option"
+                                    class="cursor-pointer hover:bg-blue-100 py-2 px-2"
+                                >
+                                    {{ option }}
+                                </ComboboxItem>
+                            </ComboboxViewport>
+                        </ComboboxContent>
+                    </ComboboxRoot>
 
                     <div>
                         <vue-number
@@ -129,7 +205,10 @@ export default {
                     </div>
 
                     <div class="flex justify-end">
-                        <AppButton class="bg-blue-400" @click="addItem">
+                        <AppButton
+                            class="bg-blue-400 hover:bg-blue-300"
+                            @click="addItem"
+                        >
                             <span class="mr-3">Create new item</span>
                             <div class="i-basil:plus-solid text-3xl"></div>
                         </AppButton>
@@ -207,10 +286,16 @@ export default {
             </div>
 
             <div class="flex justify-end items-end mt-10">
-                <AppButton @click="clearForm()" class="bg-rose-500 mr-10">
+                <AppButton
+                    @click="clearForm()"
+                    class="bg-rose-500 hover:bg-rose-400 mr-10"
+                >
                     Discart
                 </AppButton>
-                <AppButton @click="postData()" class="bg-green-500">
+                <AppButton
+                    @click="postData()"
+                    class="bg-green-500 hover:bg-green-400"
+                >
                     Save
                 </AppButton>
             </div>

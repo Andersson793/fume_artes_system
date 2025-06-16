@@ -16,4 +16,7 @@ export default defineConfig({
     },
     extensions: [".js", ".vue", ".json"],
   },
+  build: {
+    target: "esnext",
+  },
 });

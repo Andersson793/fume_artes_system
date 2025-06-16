@@ -1,26 +1,37 @@
 <script>
 export default {
+    mounted() {
+        this.$props.changeData(this.PageSlice());
+    },
+    updated() {
+        this.$props.changeData(this.PageSlice());
+    },
     props: {
-        pages: {
-            type: Number,
-            require: true,
-        },
-        items: {
-            type: Array,
-        },
-        currentPage: {
-            type: Number,
-            default: 0,
-        },
-        changeCurrentPage: {
-            type: Function,
-        },
+        items: Array,
+        page: Number,
+        changeCurrentPage: Function,
+        changeData: Function,
     },
     methods: {
         changePage(i) {
-            if (i >= 0 && i <= this.$props.pages) {
+            if (i >= 0 && i <= this.PageSlice().length) {
                 this.$props.changeCurrentPage(i);
             }
+        },
+
+        PageSlice() {
+            //change this
+            const itemsPerPage = 5;
+
+            const tableItems = this.$props.items;
+
+            let pageItems = [];
+
+            for (let i = 0; i < tableItems.length; i += itemsPerPage) {
+                pageItems.push(tableItems.slice(i, i + itemsPerPage));
+            }
+
+            return pageItems;
         },
     },
 };
@@ -28,14 +39,14 @@ export default {
 <template>
     <div class="flex items-center">
         <div
-            v-for="(item, index) in $props.pages"
-            class="hover:bg-blue-200 w-8 h-8 mx-2 rounded-full cursor-pointer select-none flex justify-center items-center"
-            :class="{ 'bg-gray-200': index === $props.currentPage }"
-            @click="changeCurrentPage(index)"
+            v-for="(item, index) in PageSlice().length"
+            class="hover:bg-blue-200 w-8 h-8 mx-3 rounded-full cursor-pointer select-none flex justify-center items-center"
+            :class="{ 'bg-gray-200': index === $props.page }"
+            @click="changePage(index)"
         >
             {{ index + 1 }}
         </div>
 
-        <div>{{ $props.items.length }} Items</div>
+        <div class="ml-6">{{ $props.items.length }} Items</div>
     </div>
 </template>
