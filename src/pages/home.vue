@@ -6,6 +6,7 @@ import AppTable from "@/components/AppTable.vue";
 import Pagination from "@/components/Pagination.vue";
 import { useWebsiteStore } from "@stores/store.js";
 import { instance } from "@/axios.js";
+import { localCurrency } from "@/localCurrency";
 
 export default {
     data() {
@@ -19,6 +20,7 @@ export default {
             page: 0,
             ItemsPerPage: 5,
             pageItems: [],
+            localCurrency: localCurrency,
 
             store: useWebsiteStore(),
         };
@@ -122,12 +124,7 @@ export default {
                         </td>
 
                         <td class="whitespace-nowrap text-left p-4 text-bold">
-                            {{
-                                Intl.NumberFormat("pt-BR", {
-                                    style: "currency",
-                                    currency: "BRL",
-                                }).format(row.total_items)
-                            }}
+                            {{ localCurrency(row.total_items) }}
                         </td>
                         <td @click="removeItem(row.id)">
                             <div

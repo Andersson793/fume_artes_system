@@ -3,7 +3,6 @@ import { RouterLink, RouterView, routerViewLocationKey } from "vue-router";
 import MenuItem from "./components/MenuOption.vue";
 import { AvatarFallback, AvatarImage, AvatarRoot } from "reka-ui";
 import { useWebsiteStore } from "@stores/store.js";
-import { Key } from "lucide-vue-next";
 import { KeepAlive } from "vue";
 import Login from "@/pages/login.vue";
 

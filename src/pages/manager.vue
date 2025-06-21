@@ -18,9 +18,18 @@ import {
     ComboboxSeparator,
     ComboboxTrigger,
     ComboboxViewport,
+    ToastTitle,
+    ToastAction,
+    ToastClose,
+    ToastDescription,
+    ToastProvider,
+    ToastRoot,
+    ToastTitle,
+    ToastViewport,
 } from "reka-ui";
 import { options, component as VueNumber } from "@coders-tm/vue-number-format";
 import { instance } from "@/axios.js";
+import { localCurrency } from "@/localCurrency.js";
 
 export default {
     data() {
@@ -33,8 +42,6 @@ export default {
                     total: 0,
                 },
                 customer: "",
-                customer_cnpj: "",
-                date: "",
                 description: "",
             },
             input_currency_config: {
@@ -63,6 +70,10 @@ export default {
             ],
             selected_option: options[0],
             new_option: "",
+            localCurrency: localCurrency,
+            toast: false,
+            toastContent: "",
+            toastTitle: "",
         };
     },
 
@@ -124,7 +135,17 @@ export default {
                         },
                     },
                 )
-                .then(() => {
+                .then((resp) => {
+                    console.log(resp);
+
+                    resp.status == 200
+                        ? (this.toastTitle = "Sucess")
+                        : (this.ToastTitle = "Fail");
+
+                    this.toastContent = resp.data;
+
+                    this.toast = true;
+
                     this.clearForm();
                 });
         },
@@ -153,6 +174,13 @@ export default {
         ComboboxSeparator,
         ComboboxTrigger,
         ComboboxViewport,
+        ToastAction,
+        ToastClose,
+        ToastDescription,
+        ToastProvider,
+        ToastRoot,
+        ToastTitle,
+        ToastViewport,
     },
 };
 </script>
@@ -233,7 +261,7 @@ export default {
                             >
                                 <td class="pl-3">{{ item.name }}</td>
                                 <td class="text-center py-3">
-                                    R$ {{ item.price }}
+                                    {{ localCurrency(item.price) }}
                                 </td>
                                 <td
                                     @click="removeItem(index)"
@@ -252,7 +280,7 @@ export default {
                         <tr class="font-bold">
                             <td colspan="1" class="pl-3 py-3">Total</td>
                             <td class="text-center">
-                                R$ {{ form.items.total }}
+                                {{ localCurrency(form.items.total) }}
                             </td>
                             <td></td>
                         </tr>
@@ -301,4 +329,16 @@ export default {
             </div>
         </AppPanel>
     </main>
+
+    <ToastProvider duration="5000">
+        <ToastRoot
+            class="bg-white border-1 border-solid border-gray-200 rounded-lg shadow-sm border p-2 list-none"
+            v-model:open="toast"
+        >
+            <ToastTitle class="text-green-500"> {{ toastTitle }} </ToastTitle>
+            <ToastDescription> {{ toastContent }} </ToastDescription>
+        </ToastRoot>
+
+        <ToastViewport class="fixed bottom-5 right-5" />
+    </ToastProvider>
 </template>
