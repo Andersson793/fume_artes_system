@@ -4,11 +4,23 @@ import AppButton from "@components/form/AppButton";
 import { instance } from "@/axios.js";
 import { useWebsiteStore } from "@stores/store.js";
 
+import {
+    ToastTitle,
+    ToastAction,
+    ToastClose,
+    ToastDescription,
+    ToastProvider,
+    ToastRoot,
+    ToastViewport,
+} from "reka-ui";
+
 export default {
     data() {
         return {
             email: "anderssonsilva793@gmail.com",
             password: "",
+            toastOpen: false,
+            toastContent: "",
         };
     },
     methods: {
@@ -19,10 +31,10 @@ export default {
                     password: this.password,
                 })
                 .then((response) => {
-                    if (response.status == 200) {
+                    if (response.status === 200) {
                         sessionStorage.setItem("token", response.data.token);
 
-                        console.log(response.data.user_name);
+                        this.toastOpen = true;
 
                         let store = useWebsiteStore();
 
@@ -32,14 +44,25 @@ export default {
                             name: response.data.user_name,
                         });
                     } else {
-                        alert("Login Failed");
+                        alert(response.message);
                     }
+                })
+                .catch((err) => {
+                    this.toastOpen = true;
+                    this.toastContent = err;
                 });
         },
     },
     components: {
         AppInput,
         AppButton,
+        ToastTitle,
+        ToastAction,
+        ToastClose,
+        ToastDescription,
+        ToastProvider,
+        ToastRoot,
+        ToastViewport,
     },
 };
 </script>
@@ -49,18 +72,18 @@ export default {
             class="w-fit px-10 py-3 rounded-md max-h-fit border-solid border-gray-300"
         >
             <div class="text-center">
-                <h3>Login here</h3>
+                <h3>Login</h3>
             </div>
             <form @submit.prevent="onsubmit" class="">
                 <div>
-                    <label>Email</label>
+                    <label>Login</label>
                     <br />
-                    <AppInput v-model="email" placeholder="Email" />
+                    <AppInput v-model="email" placeholder="Login" />
                 </div>
                 <div class="mt-10">
-                    <label>Password</label>
+                    <label>Senha</label>
                     <br />
-                    <AppInput v-model="password" placeholder="Password" />
+                    <AppInput v-model="password" placeholder="Senha" />
                 </div>
 
                 <div class="text-center mt-10">
@@ -71,4 +94,20 @@ export default {
             </form>
         </div>
     </div>
+
+    <ToastProvider>
+        <ToastRoot
+            class="bg-white border-1 border-solid border-gray-300 rounded-lg shadow-sm border p-2 list-none"
+            v-model:open="toastOpen"
+        >
+            <ToastTitle class="text-red-500"> Erro ! </ToastTitle>
+            <ToastDescription>
+                <p>Algo deu errado com seu login, tente novamente</p>
+
+                <p class="text-yellow-600">{{ toastContent }}</p>
+            </ToastDescription>
+        </ToastRoot>
+
+        <ToastViewport class="fixed bottom-5 right-5" />
+    </ToastProvider>
 </template>

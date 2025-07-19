@@ -1,4 +1,4 @@
-export function localCurrency(currency) {
+export function useLocalCurrency(currency) {
   let NewCurrency = Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",

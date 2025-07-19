@@ -9,7 +9,7 @@ export default {
     data() {
         return {
             users: {
-                headers: ["#", "Name", "Email", "Type", "Created_at"],
+                headers: ["#", "Nome", "Login", "Tipo", "Criado em"],
                 data: [],
             },
 
@@ -50,7 +50,7 @@ export default {
 </script>
 <template>
     <AppMain>
-        <AppPanel class="col-span-6 col-start-2" title_panel="Users">
+        <AppPanel class="col-span-6 col-start-2" title_panel="Usuários">
             <AppTable :headers="users.headers">
                 <tr
                     v-for="(row, index) in users.data"

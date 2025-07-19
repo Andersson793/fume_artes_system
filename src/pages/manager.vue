@@ -24,12 +24,25 @@ import {
     ToastDescription,
     ToastProvider,
     ToastRoot,
-    ToastTitle,
     ToastViewport,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectItemIndicator,
+    SelectItemText,
+    SelectLabel,
+    SelectPortal,
+    SelectRoot,
+    SelectScrollDownButton,
+    SelectScrollUpButton,
+    SelectSeparator,
+    SelectTrigger,
+    SelectValue,
+    SelectViewport,
 } from "reka-ui";
 import { options, component as VueNumber } from "@coders-tm/vue-number-format";
 import { instance } from "@/axios.js";
-import { localCurrency } from "@/localCurrency.js";
+import { useLocalCurrency } from "@/useLocalCurrency.js";
 
 export default {
     data() {
@@ -41,6 +54,7 @@ export default {
                     items: [],
                     total: 0,
                 },
+                payment: "",
                 customer: "",
                 description: "",
             },
@@ -70,10 +84,16 @@ export default {
             ],
             selected_option: options[0],
             new_option: "",
-            localCurrency: localCurrency,
+            useLocalCurrency: useLocalCurrency,
             toast: false,
-            toastContent: "",
-            toastTitle: "",
+            toast_sucess: true,
+            toast_content: "",
+            select_options: [
+                "Pix",
+                "Cartão de crédito",
+                "Cartão de débito",
+                "Dinheiro",
+            ],
         };
     },
 
@@ -92,6 +112,7 @@ export default {
         clearForm() {
             this.form.combobox = "";
             this.form.price = 0;
+            this.form.payment = "";
             this.form.items.items = [];
             this.form.items.total = 0;
             this.form.customer = "";
@@ -106,9 +127,13 @@ export default {
                 price: this.form.price,
             };
 
-            this.form.combobox && this.form.price
-                ? this.form.items.items.push(item)
-                : alert("The form is empity");
+            if (this.form.combobox && this.form.price) {
+                this.form.items.items.push(item);
+            } else {
+                this.toast_content = "Existem campos vazios";
+                this.toast_sucess = false;
+                this.toast = true;
+            }
 
             this.form.items.total = this.ItemsGetTotal;
             this.form.combobox = "";
@@ -128,6 +153,7 @@ export default {
                         user_id: "71e8f588-30ae-4fe3-b98f-0f31242de31f",
                         description: this.form.description,
                         order_items: this.form.items.items,
+                        payment: this.form.payment,
                     },
                     {
                         headers: {
@@ -136,17 +162,16 @@ export default {
                     },
                 )
                 .then((resp) => {
-                    console.log(resp);
-
-                    resp.status == 200
-                        ? (this.toastTitle = "Sucess")
-                        : (this.ToastTitle = "Fail");
-
-                    this.toastContent = resp.data;
-
+                    this.toast_sucess = true;
+                    this.toast_content = "Salvo com sucesso.";
                     this.toast = true;
 
                     this.clearForm();
+                })
+                .catch((err) => {
+                    this.toast_content = err;
+                    this.toast_sucess = false;
+                    this.toast = true;
                 });
         },
 
@@ -181,18 +206,33 @@ export default {
         ToastRoot,
         ToastTitle,
         ToastViewport,
+        SelectContent,
+        SelectGroup,
+        SelectItem,
+        SelectItemIndicator,
+        SelectItemText,
+        SelectLabel,
+        SelectPortal,
+        SelectRoot,
+        SelectScrollDownButton,
+        SelectScrollUpButton,
+        SelectSeparator,
+        SelectTrigger,
+        SelectValue,
+        SelectViewport,
     },
 };
 </script>
 <template>
-    <main class="grid grid-cols-4 gap-10 p-10">
-        <AppPanel title_panel="Create service" class="col-span-2 col-start-2">
+    <!-- move combobox and select to another component file -->
+    <main class="grid grid-cols-4 gap-8 p-10">
+        <AppPanel title_panel="Lancar no caixa" class="col-span-2 col-start-2">
             <div class="grid grid-col-1 gap-30">
                 <div class="grid grid-col-1">
                     <ComboboxRoot v-model="form.combobox" class="relative">
                         <ComboboxInput
                             class="w-72 px-2 py-4 mt-3 rounded-sm outline-none border-none bg-gray-100 font-semibold"
-                            placeholder="Item descrition"
+                            placeholder="Descrição do item"
                             v-model="new_option"
                         />
 
@@ -225,7 +265,7 @@ export default {
 
                     <div>
                         <vue-number
-                            placeholder="Price"
+                            placeholder="Preço"
                             class="px-2 py-4 mt-3 rounded-sm outline-none border-none bg-gray-100 font-semibold"
                             v-model.number="form.price"
                             v-bind="input_currency_config"
@@ -249,7 +289,7 @@ export default {
                     >
                         <tr>
                             <th class="text-left py-3 pl-3">Item</th>
-                            <th>Price</th>
+                            <th>Preço</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -261,7 +301,7 @@ export default {
                             >
                                 <td class="pl-3">{{ item.name }}</td>
                                 <td class="text-center py-3">
-                                    {{ localCurrency(item.price) }}
+                                    {{ useLocalCurrency(item.price) }}
                                 </td>
                                 <td
                                     @click="removeItem(index)"
@@ -271,7 +311,7 @@ export default {
                         </template>
 
                         <tr v-else class="p-5">
-                            <td class="pl-3 py-3">No service items here !</td>
+                            <td class="pl-3 py-3">Sem items aqui !</td>
                         </tr>
                     </tbody>
                     <tfoot
@@ -280,7 +320,7 @@ export default {
                         <tr class="font-bold">
                             <td colspan="1" class="pl-3 py-3">Total</td>
                             <td class="text-center">
-                                {{ localCurrency(form.items.total) }}
+                                {{ useLocalCurrency(form.items.total) }}
                             </td>
                             <td></td>
                         </tr>
@@ -288,7 +328,7 @@ export default {
                 </table>
 
                 <div>
-                    <label for="customer">Customer</label>
+                    <label for="customer">Cliente</label>
                     <br />
                     <AppInput
                         id="customer"
@@ -298,8 +338,42 @@ export default {
                     />
                 </div>
 
+                <div>
+                    <label for="payment">Pagamento</label>
+                    <br />
+                    <SelectRoot id="payment" v-model="form.payment">
+                        <SelectTrigger
+                            class="min-w-32 px-2 py-4 mt-3 rounded-sm outline-none border-none bg-gray-100 font-semibold text-left cursor-pointer"
+                            aria-label="Customise options"
+                        >
+                            <SelectValue placeholder="Forma de pagamento" />
+                        </SelectTrigger>
+
+                        <SelectPortal>
+                            <SelectContent
+                                class="absolute z-10 mt-1 bg-white border-solid border-gray-300 border-0.5 rounded-md max-h-50"
+                            >
+                                <SelectViewport class="grid grid-cols-1 gap-1">
+                                    <SelectItem
+                                        v-for="item in select_options"
+                                        class="leading-none text-grass11 rounded-[3px] flex items-center select-none cursor-pointer py-2 px-1 hover:bg-blue-100"
+                                        :value="item"
+                                    >
+                                        <SelectItemText>
+                                            {{ item }}
+                                        </SelectItemText>
+                                        <SelectItemIndicator
+                                            class="absolute left-0 w-[25px] inline-flex items-center justify-center"
+                                        />
+                                    </SelectItem>
+                                </SelectViewport>
+                            </SelectContent>
+                        </SelectPortal>
+                    </SelectRoot>
+                </div>
+
                 <div class="grid grid-col-1">
-                    <label for="description" class="mb-2">Description</label>
+                    <label for="description" class="mb-2">Descrição</label>
                     <br />
 
                     <textarea
@@ -324,7 +398,7 @@ export default {
                     @click="postData()"
                     class="bg-green-500 hover:bg-green-400"
                 >
-                    Save
+                    Salvar
                 </AppButton>
             </div>
         </AppPanel>
@@ -335,8 +409,13 @@ export default {
             class="bg-white border-1 border-solid border-gray-200 rounded-lg shadow-sm border p-2 list-none"
             v-model:open="toast"
         >
-            <ToastTitle class="text-green-500"> {{ toastTitle }} </ToastTitle>
-            <ToastDescription> {{ toastContent }} </ToastDescription>
+            <ToastTitle>
+                <span class="text-green-400" v-if="toast_sucess">Sucesso</span>
+                <span class="text-red-400" v-else>Erro</span>
+            </ToastTitle>
+            <ToastDescription>
+                <p>{{ toast_content }}</p>
+            </ToastDescription>
         </ToastRoot>
 
         <ToastViewport class="fixed bottom-5 right-5" />

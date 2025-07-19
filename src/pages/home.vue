@@ -6,21 +6,27 @@ import AppTable from "@/components/AppTable.vue";
 import Pagination from "@/components/Pagination.vue";
 import { useWebsiteStore } from "@stores/store.js";
 import { instance } from "@/axios.js";
-import { localCurrency } from "@/localCurrency";
+import { useLocalCurrency } from "@/useLocalCurrency";
 
 export default {
     data() {
         return {
             financialData: [],
             ordersData: [],
-
-            tableHeaders: ["#", "Description", "Date", "Customer", "Value", ""],
+            tableHeaders: [
+                "#",
+                "Descrição",
+                "Pagamento",
+                "Cliente",
+                "Data",
+                "Valor",
+                "",
+            ],
             loading: false,
-
             page: 0,
-            ItemsPerPage: 5,
+            itemsPerPage: 15,
             pageItems: [],
-            localCurrency: localCurrency,
+            useLocalCurrency: useLocalCurrency,
 
             store: useWebsiteStore(),
         };
@@ -92,7 +98,7 @@ export default {
 <template>
     <AppMain>
         <div class="col-span-6">
-            <AppPanel title_panel="Title panel" :reload="getOrders">
+            <AppPanel title_panel="Movimento do caixa" :reload="getOrders">
                 <AppTable :headers="tableHeaders">
                     <tr
                         v-for="(row, index) in pageItems[page]"
@@ -100,10 +106,16 @@ export default {
                         class="odd:bg-white even:bg-gray-100"
                     >
                         <td class="whitespace-nowrap text-left p-4">
-                            {{ index + 1 + ItemsPerPage * page }}
+                            {{ index + 1 + itemsPerPage * page }}
                         </td>
                         <td class="whitespace-nowrap text-left p-4 w-full">
                             {{ row.description }}
+                        </td>
+                        <td class="whitespace-nowrap text-center p-4">
+                            {{ row.payment }}
+                        </td>
+                        <td class="whitespace-nowrap text-left p-4">
+                            {{ row.customer }}
                         </td>
                         <td class="whitespace-nowrap text-left p-4">
                             {{
@@ -119,12 +131,9 @@ export default {
                                 )
                             }}
                         </td>
-                        <td class="whitespace-nowrap text-left p-4">
-                            {{ row.customer }}
-                        </td>
 
                         <td class="whitespace-nowrap text-left p-4 text-bold">
-                            {{ localCurrency(row.total_items) }}
+                            {{ useLocalCurrency(row.total_items) }}
                         </td>
                         <td @click="removeItem(row.id)">
                             <div
@@ -140,6 +149,7 @@ export default {
                         :page="page"
                         :changeCurrentPage="changeCurrentPage"
                         :changeData="changeData"
+                        :itemsPerPage="itemsPerPage"
                         v-if="ordersData.length > 0"
                     />
                 </div>
@@ -148,7 +158,7 @@ export default {
 
         <div class="col-span-2">
             <AppPanel
-                title_panel="Financial information"
+                title_panel="Informação financeira"
                 :reload="getFinancial"
             >
                 <div v-if="loading">
@@ -167,11 +177,13 @@ export default {
                         <span
                             v-if="financialData.stocks.IBOVESPA.variation > 0"
                             class="text-sm text-green-500"
-                            >{{ financialData.stocks.IBOVESPA.variation }}
+                            >{{ financialData.stocks.IBOVESPA.variation }}%
                         </span>
-                        <span v-else class="text-sm text-red-400">{{
-                            financialData.stocks.IBOVESPA.variation
-                        }}</span>
+                        <span v-else class="text-sm text-red-400"
+                            >{{
+                                financialData.stocks.IBOVESPA.variation
+                            }}%</span
+                        >
                     </p>
 
                     <p class="text-lg">
@@ -181,11 +193,11 @@ export default {
                         <span
                             v-if="financialData.currencies.USD.variation > 0"
                             class="text-sm text-green-500"
-                            >{{ financialData.currencies.USD.variation }}</span
+                            >{{ financialData.currencies.USD.variation }}%</span
                         >
-                        <span v-else class="text-sm text-red-400">{{
-                            financialData.currencies.USD.variation
-                        }}</span>
+                        <span v-else class="text-sm text-red-400"
+                            >{{ financialData.currencies.USD.variation }}%</span
+                        >
                     </p>
 
                     <p class="text-lg">
@@ -197,11 +209,13 @@ export default {
                             class="text-sm text-green-500"
                             >{{
                                 financialData.bitcoin.bitstamp.variation
-                            }}</span
+                            }}%</span
                         >
-                        <span v-else class="text-sm text-red-400">{{
-                            financialData.bitcoin.bitstamp.variation
-                        }}</span>
+                        <span v-else class="text-sm text-red-400"
+                            >{{
+                                financialData.bitcoin.bitstamp.variation
+                            }}%</span
+                        >
                     </p>
                 </div>
             </AppPanel>

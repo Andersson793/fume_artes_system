@@ -31,21 +31,24 @@ export default {
 </script>
 <template>
     <AppMain>
-        <AppPanel title_panel="User information" class="col-span-4 col-start-3">
+        <AppPanel
+            title_panel="Informações do usuário"
+            class="col-span-4 col-start-3"
+        >
             <div>
                 <div class="py-5">
-                    <span>User name</span>
+                    <span>Nome</span>
                     <p class="text-lg">{{ data.name }}</p>
                 </div>
                 <div class="py-5">
-                    <span>Email</span>
+                    <span>Login</span>
                     <p class="text-lg">{{ data.email }}</p>
                 </div>
                 <div class="py-5">
-                    <span>Account</span>
-                    <p class="text-lg">type: {{ data.type }}</p>
+                    <span>Conta</span>
+                    <p class="text-lg">tipo: {{ data.type }}</p>
                     <p class="text-lg">
-                        Created at
+                        Criado em
                         {{
                             new Date(data.created_at).toLocaleString("pt-BR", {
                                 day: "numeric",

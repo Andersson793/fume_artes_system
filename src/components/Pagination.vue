@@ -11,6 +11,7 @@ export default {
         page: Number,
         changeCurrentPage: Function,
         changeData: Function,
+        itemsPerPage: Number,
     },
     methods: {
         changePage(i) {
@@ -20,15 +21,14 @@ export default {
         },
 
         PageSlice() {
-            //change this
-            const itemsPerPage = 5;
+            var perPage = this.$props.itemsPerPage;
 
             const tableItems = this.$props.items;
 
             let pageItems = [];
 
-            for (let i = 0; i < tableItems.length; i += itemsPerPage) {
-                pageItems.push(tableItems.slice(i, i + itemsPerPage));
+            for (let i = 0; i < tableItems.length; i += perPage) {
+                pageItems.push(tableItems.slice(i, i + perPage));
             }
 
             return pageItems;

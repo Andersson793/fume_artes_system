@@ -93,7 +93,7 @@ export default {
                             },
                             title: {
                                 display: true,
-                                text: "Custom Chart Title",
+                                text: "Entrada no caixa por dia",
                             },
                         },
                     },
@@ -149,7 +149,7 @@ export default {
 <template>
     <main class="grid grid-cols-7 gap-10 p-10">
         <AppPanel
-            title_panel="Title panel"
+            title_panel="Registro do caixa"
             class="col-span-5 col-start-2"
             v-if="loaded"
         >

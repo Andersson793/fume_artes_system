@@ -59,7 +59,7 @@ export default {
                     <input
                         type="button"
                         class="bg-red-400 hover:bg-red-300 text-white rounded-sm p-2 w-fit h-fit font-bold border-none cursor-pointer inline-flex items-center"
-                        value="Logout"
+                        value="Saír da conta"
                         @click="Logout"
                     />
                 </div>
@@ -72,7 +72,7 @@ export default {
                                     class="i-basil:home-outline text-2xl pr-5"
                                 ></div>
                             </template>
-                            Home
+                            Início
                         </MenuItem>
                     </RouterLink>
 
@@ -83,7 +83,7 @@ export default {
                                     class="i-basil:wallet-outline text-2xl pr-5"
                                 ></div>
                             </template>
-                            Manager
+                            Gerenciar caixa
                         </MenuItem>
                     </RouterLink>
 
@@ -105,7 +105,7 @@ export default {
                                     class="i-basil:box-outline text-2xl pr-5"
                                 ></div>
                             </template>
-                            Tables
+                            Tabelas
                         </MenuItem>
                     </RouterLink>
 
@@ -116,7 +116,7 @@ export default {
                                     class="i-basil:user-outline text-2xl pr-5"
                                 ></div>
                             </template>
-                            Account
+                            Conta / Usuário
                         </MenuItem>
                     </RouterLink>
                 </div>
