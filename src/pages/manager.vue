@@ -150,7 +150,7 @@ export default {
                     "/api/orders",
                     {
                         customer: this.form.customer,
-                        user_id: "71e8f588-30ae-4fe3-b98f-0f31242de31f",
+                        user_id: "c186964f-18c9-4f41-bf37-87e49d86e032",
                         description: this.form.description,
                         order_items: this.form.items.items,
                         payment: this.form.payment,
