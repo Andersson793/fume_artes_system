@@ -17,7 +17,7 @@ export default {
         //fix this -> the component fetch the api for each mount
 
         instance
-            .get("/api/users/71e8f588-30ae-4fe3-b98f-0f31242de31f", {
+            .get("/api/users/c186964f-18c9-4f41-bf37-87e49d86e032", {
                 headers: {
                     Authorization: sessionStorage.getItem("token"),
                 },
