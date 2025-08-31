@@ -13,19 +13,19 @@
     "chart.js": "^4.5.0",
     "lucide-vue-next": "^0.484.0",
     "pinia": "^3.0.3",
-    "reka-ui": "^2.3.2",
+    "reka-ui": "^2.4.1",
     "unocss": "66.1.0-beta.6",
     "vite": "^6.3.5",
-    "vue": "^3.5.17",
+    "vue": "^3.5.19",
     "vue-chartjs": "^5.3.2",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@iconify-json/basil": "^1.2.2",
+    "@iconify-json/basil": "^1.2.4",
     "@unocss/preset-icons": "66.1.0-beta.10",
     "@unocss/preset-web-fonts": "66.1.0-beta.10",
     "@unocss/preset-wind3": "66.1.0-beta.12",
     "@unocss/preset-wind4": "66.1.0-beta.12",
-    "axios": "^1.10.0"
+    "axios": "^1.11.0"
   }
 }

@@ -42,6 +42,7 @@ export default {
                             loged: true,
                             email: response.data.user_email,
                             name: response.data.user_name,
+                            user_id: response.data.user_id,
                         });
                     } else {
                         alert(response.message);
@@ -83,7 +84,11 @@ export default {
                 <div class="mt-10">
                     <label>Senha</label>
                     <br />
-                    <AppInput v-model="password" placeholder="Senha" />
+                    <AppInput
+                        type="password"
+                        v-model="password"
+                        placeholder="Senha"
+                    />
                 </div>
 
                 <div class="text-center mt-10">

@@ -5,6 +5,7 @@ import { AvatarFallback, AvatarImage, AvatarRoot } from "reka-ui";
 import { useWebsiteStore } from "@stores/store.js";
 import { KeepAlive } from "vue";
 import Login from "@/pages/login.vue";
+import View from "@/pages/view.vue";
 
 export default {
     data() {
@@ -31,6 +32,7 @@ export default {
         AvatarFallback,
         Login,
         KeepAlive,
+        View,
     },
 };
 </script>
@@ -76,6 +78,17 @@ export default {
                         </MenuItem>
                     </RouterLink>
 
+                    <RouterLink to="/tables">
+                        <MenuItem class="text-black outline-hidden">
+                            <template #icon>
+                                <div
+                                    class="i-basil:box-outline text-2xl pr-5"
+                                ></div>
+                            </template>
+                            Caixa
+                        </MenuItem>
+                    </RouterLink>
+
                     <RouterLink to="/manager">
                         <MenuItem class="text-black outline-hidden">
                             <template #icon>
@@ -95,17 +108,6 @@ export default {
                                 ></div>
                             </template>
                             Dashboard
-                        </MenuItem>
-                    </RouterLink>
-
-                    <RouterLink to="/tables">
-                        <MenuItem class="text-black outline-hidden">
-                            <template #icon>
-                                <div
-                                    class="i-basil:box-outline text-2xl pr-5"
-                                ></div>
-                            </template>
-                            Tabelas
                         </MenuItem>
                     </RouterLink>
 
@@ -129,9 +131,7 @@ export default {
             </header>
 
             <router-view v-slot="{ Component }">
-                <KeepAlive>
-                    <component :is="Component" />
-                </KeepAlive>
+                <component :is="Component" />
             </router-view>
         </div>
     </div>

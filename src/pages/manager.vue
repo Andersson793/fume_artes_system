@@ -43,10 +43,12 @@ import {
 import { options, component as VueNumber } from "@coders-tm/vue-number-format";
 import { instance } from "@/axios.js";
 import { useLocalCurrency } from "@/useLocalCurrency.js";
+import { useWebsiteStore } from "@stores/store.js";
 
 export default {
     data() {
         return {
+            store: useWebsiteStore(),
             form: {
                 combobox: "",
                 price: 0,
@@ -55,7 +57,7 @@ export default {
                     total: 0,
                 },
                 payment: "",
-                customer: "",
+                customer: "Indefinido",
                 description: "",
             },
             input_currency_config: {
@@ -154,6 +156,7 @@ export default {
                         description: this.form.description,
                         order_items: this.form.items.items,
                         payment: this.form.payment,
+                        user_id: this.store.user_id,
                     },
                     {
                         headers: {
@@ -224,7 +227,6 @@ export default {
 };
 </script>
 <template>
-    <!-- move combobox and select to another component file -->
     <main class="grid grid-cols-4 gap-8 p-10">
         <AppPanel title_panel="Lancar no caixa" class="col-span-2 col-start-2">
             <div class="grid grid-col-1 gap-30">

@@ -1,57 +1,84 @@
 <script>
 import AppMain from "@/components/AppMain.vue";
 import AppPanel from "@/components/AppPanel.vue";
-import AlertItem from "@/components/AlertItem.vue";
-import AppTable from "@/components/AppTable.vue";
-import Pagination from "@/components/Pagination.vue";
+import { Bar } from "vue-chartjs";
+import {
+    Chart,
+    DoughnutController,
+    ArcElement,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Legend,
+    Title,
+    Tooltip,
+    SubTitle,
+} from "chart.js";
 import { useWebsiteStore } from "@stores/store.js";
 import { instance } from "@/axios.js";
-import { useLocalCurrency } from "@/useLocalCurrency";
+
+Chart.register(
+    DoughnutController,
+    ArcElement,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    SubTitle,
+    Legend,
+);
+
+Chart.defaults.color = "black";
 
 export default {
     data() {
         return {
             financialData: [],
-            ordersData: [],
-            tableHeaders: [
-                "#",
-                "Descrição",
-                "Pagamento",
-                "Cliente",
-                "Data",
-                "Valor",
-                "",
-            ],
-            loading: false,
-            page: 0,
-            itemsPerPage: 15,
-            pageItems: [],
-            useLocalCurrency: useLocalCurrency,
+            Bar: {
+                data: {
+                    title: "mode",
+                    labels: ["janeiro", "fevereiro", "marco", "abril", "maio"],
+
+                    datasets: [
+                        {
+                            data: [],
+                            backgroundColor: [
+                                "oklch(70.7% 0.165 254.624)",
+                                "oklch(88.2% 0.059 254.128)",
+                            ],
+                            borderColor: "white",
+                            borderWidth: 2,
+                            borderRadius: 3,
+                            color: "blue",
+                        },
+                    ],
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        title: {
+                            display: true,
+                            text: "Entrada no caixa por dia",
+                        },
+                    },
+                },
+            },
+
+            loaded: false,
+
+            financialDataLoaded: false,
 
             store: useWebsiteStore(),
         };
     },
     mounted() {
         this.getFinancial();
-        this.getOrders();
+        this.getData();
     },
     methods: {
-        async removeItem(id) {
-            await instance
-                .delete(`/api/orders/${id}`, {
-                    headers: {
-                        Authorization: sessionStorage.getItem("token"),
-                    },
-                })
-                .then((response) => {
-                    if (response.status == 200) {
-                        this.getOrders();
-                    } else {
-                        alert("error");
-                    }
-                });
-        },
-
         async getFinancial() {
             await instance
                 .get("/api/hgbrasil", {
@@ -61,98 +88,61 @@ export default {
                 })
                 .then((resp) => {
                     this.financialData = resp.data.results;
-
-                    this.loading = true;
+                    this.financialDataLoaded = true;
                 });
         },
 
-        async getOrders() {
+        async getData() {
             await instance
-                .get("/api/orders", {
+                .get("/api/historical_data", {
                     headers: {
                         Authorization: sessionStorage.getItem("token"),
                     },
                 })
                 .then((resp) => {
-                    this.ordersData = resp.data;
+                    var indices = [];
+                    var labels = [];
+
+                    resp.data.map((element) => {
+                        indices.push(element.TotalItems);
+
+                        let day = new Date(
+                            element.Year,
+                            element.Month - 1,
+                            element.Day,
+                        );
+
+                        labels.push(
+                            day.toLocaleDateString("pt-BR", {
+                                month: "short",
+                                day: "numeric",
+                            }),
+                        );
+                    });
+
+                    this.Bar.data.datasets[0].data = indices.reverse();
+                    this.Bar.data.labels = labels.reverse();
+
+                    this.loaded = true;
                 });
-        },
-
-        changeCurrentPage(p) {
-            this.page = p;
-        },
-
-        changeData(e) {
-            this.pageItems = e;
         },
     },
     components: {
         AppMain,
         AppPanel,
-        AlertItem,
-        AppTable,
-        Pagination,
+        Bar,
     },
 };
 </script>
 <template>
     <AppMain>
         <div class="col-span-6">
-            <AppPanel title_panel="Movimento do caixa" :reload="getOrders">
-                <AppTable :headers="tableHeaders">
-                    <tr
-                        v-for="(row, index) in pageItems[page]"
-                        :key="row.id"
-                        class="odd:bg-white even:bg-gray-100"
-                    >
-                        <td class="whitespace-nowrap text-left p-4">
-                            {{ index + 1 + itemsPerPage * page }}
-                        </td>
-                        <td class="whitespace-nowrap text-left p-4 w-full">
-                            {{ row.description }}
-                        </td>
-                        <td class="whitespace-nowrap text-center p-4">
-                            {{ row.payment }}
-                        </td>
-                        <td class="whitespace-nowrap text-left p-4">
-                            {{ row.customer }}
-                        </td>
-                        <td class="whitespace-nowrap text-left p-4">
-                            {{
-                                new Date(row.created_at).toLocaleString(
-                                    "pt-BR",
-                                    {
-                                        day: "numeric",
-                                        month: "numeric",
-                                        year: "numeric",
-                                        hour: "numeric",
-                                        minute: "numeric",
-                                    },
-                                )
-                            }}
-                        </td>
-
-                        <td class="whitespace-nowrap text-left p-4 text-bold">
-                            {{ useLocalCurrency(row.total_items) }}
-                        </td>
-                        <td @click="removeItem(row.id)">
-                            <div
-                                class="i-basil:trash-alt-solid text-2xl text-red cursor-pointer"
-                            ></div>
-                        </td>
-                    </tr>
-                </AppTable>
-
-                <div class="flex justify-center">
-                    <Pagination
-                        :items="ordersData"
-                        :page="page"
-                        :changeCurrentPage="changeCurrentPage"
-                        :changeData="changeData"
-                        :itemsPerPage="itemsPerPage"
-                        v-if="ordersData.length > 0"
-                    />
-                </div>
+            <AppPanel
+                title_panel="Registro do caixa"
+                class="col-span-5 col-start-2"
+                v-if="loaded"
+            >
+                <Bar :data="Bar.data" :options="Bar.options" />
             </AppPanel>
         </div>
 
@@ -161,7 +151,7 @@ export default {
                 title_panel="Informação financeira"
                 :reload="getFinancial"
             >
-                <div v-if="loading">
+                <div v-if="financialDataLoaded">
                     <p class="text-lg">
                         <span class="text-bold">CDI: </span>
                         {{ financialData.taxes[0].cdi }}

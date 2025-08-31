@@ -14,7 +14,7 @@ export default {
 <template>
     <input
         :id="id"
-        class="px-2 py-4 mt-3 rounded-sm outline-none border-none bg-gray-100 font-semibold"
+        class="block min-w-62 px-2 h-12 mt-3 rounded-sm outline-none border-none bg-gray-100 font-semibold"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
     />

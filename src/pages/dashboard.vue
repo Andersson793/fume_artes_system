@@ -127,7 +127,6 @@ export default {
                             element.Day,
                         );
 
-                        //labels.push(element.Day + "/" + element.Month);
                         labels.push(
                             day.toLocaleDateString("pt-BR", {
                                 month: "short",

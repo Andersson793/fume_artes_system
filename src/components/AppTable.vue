@@ -19,25 +19,7 @@ export default {
             this.page = i;
         },
     },
-    computed: {
-        /*
-      PageSlice() {
-          const itemsPerPage = 5;
-          const tableItems = this.$props.data;
-
-          let pageItems = [];
-
-          for (let i = 0; i < tableItems.length; i += itemsPerPage) {
-              pageItems.push(tableItems.slice(i, i + itemsPerPage));
-          }
-
-          this.pageItems = pageItems;
-
-          return pageItems;
-      },
-
-      */
-    },
+    computed: {},
     components: { Pagination },
 };
 </script>
