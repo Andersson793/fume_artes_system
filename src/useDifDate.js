@@ -1,20 +1,26 @@
 export default function DifDate(oldDate, today) {
   const date1 = new Date(oldDate);
   const date2 = new Date(today);
-  const day = 86400000;
 
-  let dif = Math.floor(Math.abs(date1 - date2) / day);
+  const hour = 3600000;
+
+  const day = 24;
+  const month = day * 30;
+
+  let difHours = Math.floor(Math.abs(date1 - date2) / hour);
 
   let resp;
 
-  if (dif == 0) {
-    resp = "Hoje";
-  } else if (dif >= 1 && dif <= 30) {
-    resp = dif + " dia(s) atrás.";
-  } else if (dif > 30 && dif <= 60) {
-    resp = Math.floor(dif / 30) + " mês atrás.";
-  } else if (dif > 60) {
-    resp = Math.floor(dif / 30) + " meses atrás.";
+  if (difHours < 1) {
+    resp = "Agora";
+  } else if (difHours >= 1 && difHours < day) {
+    resp = difHours + " hora(s) atrás";
+  } else if (difHours >= day && difHours < month) {
+    resp = Math.floor(difHours / day) + " dia(s) atrás.";
+  } else if (difHours >= month && difHours < month * 2) {
+    resp = Math.floor(difHours / month) + " mês atrás.";
+  } else if (difHours >= month * 2) {
+    resp = Math.floor(difHours / month) + " meses atrás.";
   }
 
   return resp;
