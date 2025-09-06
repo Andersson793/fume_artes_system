@@ -197,34 +197,7 @@ export default {
     </AppMain>
 
     <DialogModal :open="modal" title="Deseja deletar este item ?">
-        Deseja deletar o item <b>{{ modal_item }}</b> criado em
-        <b>{{
-            new Date(modal_date).toLocaleString("pt-BR", {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-            })
-        }}</b>
-
-        <template #footer>
-            <AppButton @click="modal = !modal" class="bg-blue-400 mr-10"
-                >Fechar</AppButton
-            >
-            <AppButton @click="removeItem(modal_item_id)" class="bg-red-400"
-                >Deletar</AppButton
-            >
-        </template>
-    </DialogModal>
-
-    <!--
-    <div
-        v-if="modal"
-        class="fixed p-5 bg-white rounded-md max-h-fit border-solid border-gray-300 top-50% left-50% translate-x-[-50%] translate-y-[-50%] z-10"
-    >
-        <p class="text-lg font-bold">Deseja deletar este item ?</p>
-        <div class="py-5">
+        <p>
             Deseja deletar o item <b>{{ modal_item }}</b> criado em
             <b>{{
                 new Date(modal_date).toLocaleString("pt-BR", {
@@ -235,16 +208,15 @@ export default {
                     minute: "numeric",
                 })
             }}</b>
-        </div>
-        <div class="flex justify-end">
+        </p>
+
+        <template #footer>
             <AppButton @click="modal = !modal" class="bg-blue-400 mr-10"
                 >Fechar</AppButton
             >
             <AppButton @click="removeItem(modal_item_id)" class="bg-red-400"
                 >Deletar</AppButton
             >
-        </div>
-    </div>
-
-    -->
+        </template>
+    </DialogModal>
 </template>

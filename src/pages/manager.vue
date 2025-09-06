@@ -117,7 +117,7 @@ export default {
             this.form.payment = "";
             this.form.items.items = [];
             this.form.items.total = 0;
-            this.form.customer = "";
+            this.form.customer = "Indefinido";
             this.customer_cnpj = "";
             this.form.date = "";
             this.form.description = "";
