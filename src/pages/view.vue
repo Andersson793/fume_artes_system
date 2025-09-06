@@ -9,6 +9,15 @@ import { instance } from "@/axios.js";
 import { useLocalCurrency } from "@/useLocalCurrency";
 import DialogModal from "../components/DialogModal.vue";
 import { useWebsiteStore } from "@stores/store.js";
+import {
+    ToastTitle,
+    ToastAction,
+    ToastClose,
+    ToastDescription,
+    ToastProvider,
+    ToastRoot,
+    ToastViewport,
+} from "reka-ui";
 
 export default {
     data() {
@@ -23,6 +32,15 @@ export default {
                 item: "",
                 price: 0,
             },
+            toast: false,
+            toast_sucess: true,
+            toast_content: "",
+            select_options: [
+                "Pix",
+                "Cartão de crédito",
+                "Cartão de débito",
+                "Dinheiro",
+            ],
         };
     },
 
@@ -77,22 +95,18 @@ export default {
                     },
                 )
                 .then((resp) => {
-                    /*
                     this.toast_sucess = true;
                     this.toast_content = "Salvo com sucesso.";
                     this.toast = true;
-                  */
 
                     console.log(resp);
 
                     this.DiscardChages();
                 })
                 .catch((err) => {
-                    /*
-                  this.toast_content = err;
-                  this.toast_sucess = false;
-                  this.toast = true;
-                  */
+                    this.toast_content = err;
+                    this.toast_sucess = false;
+                    this.toast = true;
 
                     console.log(err);
                 });
@@ -107,6 +121,13 @@ export default {
         AppButton,
         AppInput,
         DialogModal,
+        ToastTitle,
+        ToastAction,
+        ToastClose,
+        ToastDescription,
+        ToastProvider,
+        ToastRoot,
+        ToastViewport,
     },
 };
 </script>
@@ -157,7 +178,7 @@ export default {
                             maxlength="200"
                             placeholder="Description"
                             id="description"
-                            class="w-[-moz-available] h-48 resize-none p-2 rounded-sm outline-none bg-gray-100 font-semibold border-none"
+                            class="w-[-moz-available] w-full h-48 resize-none p-2 rounded-sm outline-none bg-gray-100 font-semibold border-none"
                             v-model="localData.description"
                         ></textarea>
                     </div>
@@ -202,4 +223,20 @@ export default {
             </template>
         </DialogModal>
     </AppMain>
+    <ToastProvider duration="5000">
+        <ToastRoot
+            class="bg-white border-1 border-solid border-gray-200 rounded-lg shadow-sm border p-2 list-none"
+            v-model:open="toast"
+        >
+            <ToastTitle>
+                <span class="text-green-400" v-if="toast_sucess">Sucesso</span>
+                <span class="text-red-400" v-else>Erro</span>
+            </ToastTitle>
+            <ToastDescription>
+                <p>{{ toast_content }}</p>
+            </ToastDescription>
+        </ToastRoot>
+
+        <ToastViewport class="fixed bottom-5 right-5" />
+    </ToastProvider>
 </template>
