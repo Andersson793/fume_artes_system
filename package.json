@@ -10,15 +10,15 @@
   "dependencies": {
     "@coders-tm/vue-number-format": "^3.35.4",
     "@vitejs/plugin-vue": "^5.2.4",
-    "chart.js": "^4.5.0",
+    "chart.js": "^4.5.1",
     "lucide-vue-next": "^0.484.0",
-    "pinia": "^3.0.3",
-    "reka-ui": "^2.5.0",
+    "pinia": "^3.0.4",
+    "reka-ui": "^2.6.0",
     "unocss": "66.1.0-beta.6",
-    "vite": "^6.3.5",
-    "vue": "^3.5.21",
-    "vue-chartjs": "^5.3.2",
-    "vue-router": "^4.5.1"
+    "vite": "^6.4.1",
+    "vue": "^3.5.24",
+    "vue-chartjs": "^5.3.3",
+    "vue-router": "^4.6.3"
   },
   "devDependencies": {
     "@iconify-json/basil": "^1.2.4",
@@ -26,6 +26,6 @@
     "@unocss/preset-web-fonts": "66.1.0-beta.10",
     "@unocss/preset-wind3": "66.1.0-beta.12",
     "@unocss/preset-wind4": "66.1.0-beta.12",
-    "axios": "^1.11.0"
+    "axios": "^1.13.2"
   }
 }
