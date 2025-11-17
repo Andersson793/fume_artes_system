@@ -87,7 +87,6 @@ export default {
                     },
                 })
                 .then((resp) => {
-                    console.log(resp.data.results);
                     this.financialData = resp.data.results;
                     this.financialDataLoaded = true;
                 });
