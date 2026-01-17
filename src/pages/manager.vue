@@ -227,19 +227,19 @@ export default {
 };
 </script>
 <template>
-    <main class="grid grid-cols-4 gap-8 p-10">
-        <AppPanel title_panel="Lancar no caixa" class="col-span-2 col-start-2">
+    <main class="grid grid-cols-6 gap-8 p-10">
+        <AppPanel title_panel="Lancar no caixa" class="col-span-4 col-start-2">
             <div class="grid grid-col-1 gap-30">
-                <div class="grid grid-col-1">
+                <div class="grid grid-col-1 gap-5">
                     <ComboboxRoot v-model="form.combobox" class="relative">
                         <ComboboxInput
-                            class="w-72 px-2 py-4 mt-3 rounded-sm outline-none border-none bg-gray-100 font-semibold"
+                            class="w-72 px-2 py-4 rounded-sm outline-none border-none bg-gray-100 font-semibold"
                             placeholder="Descrição do item"
                             v-model="new_option"
                         />
 
                         <ComboboxContent
-                            class="absolute z-10 mt-1 bg-white border-solid border-gray-300 border-0.5 rounded-md max-h-50"
+                            class="absolute z-10 bg-white border-solid border-gray-300 border-0.5 rounded-md max-h-50"
                         >
                             <ComboboxViewport class="grid grid-cols-1 gap-1">
                                 <div
@@ -268,21 +268,22 @@ export default {
                     <div>
                         <vue-number
                             placeholder="Preço"
-                            class="px-2 py-4 mt-3 rounded-sm outline-none border-none bg-gray-100 font-semibold"
+                            class="px-2 py-4 rounded-sm outline-none border-none bg-gray-100 font-semibold"
                             v-model.number="form.price"
                             v-bind="input_currency_config"
                         ></vue-number>
                     </div>
 
-                    <div class="flex justify-end">
+                
+                    
                         <AppButton
                             class="bg-blue-400 hover:bg-blue-300"
                             @click="addItem"
                         >
-                            <span class="mr-3">Create new item</span>
+                            <span class="mr-3">Criar novo item</span>
                             <div class="i-basil:plus-solid text-3xl"></div>
                         </AppButton>
-                    </div>
+                    
                 </div>
 
                 <table class="table-auto border-collapse">
