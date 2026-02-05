@@ -1,10 +1,7 @@
 <template>
     <div
-        class="hover:bg-blue-100 py-3 rounded-md cursor-pointer inline-flex items-center w-full"
+        class="hover:bg-blue-200 rounded-full h-15 min-w-15 cursor-pointer inline-flex justify-center items-center w-full text-black outline-hidden"
     >
         <slot name="icon" />
-        <span class="ml-5 font-bold">
-            <slot />
-        </span>
     </div>
 </template>

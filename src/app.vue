@@ -38,14 +38,17 @@ export default {
 </script>
 <template>
     <div
-        class="grid grid-cols-7 max-h-screen h-screen w-full"
+        class="grid grid-cols-9 max-h-screen h-screen w-full"
         v-if="store.loged"
     >
-        <div>
-            <div class="border-r-solid border-gray-2 h-full">
+        
+            <div class="border-gray-2 h-full col-span-1 flex justify-center items-center">
+
+                <!--
                 <div
-                    class="flex flex-col items-center py-3 align-center border-b-solid border-gray-200"
+                    class="flex flex-col items-center align-center border-b-solid border-gray-200"
                 >
+                
                     <AvatarRoot
                         class="inline-flex h-15 w-15 select-none items-center justify-center overflow-hidden rounded-full align-middle border-solid border-.5"
                     >
@@ -64,28 +67,32 @@ export default {
                         value="Saír da conta"
                         @click="Logout"
                     />
+                
                 </div>
+                -->
 
-                <div class="p-6 grid grid-cols-1 gap-5">
+                <div class="grid grid-cols-1 gap-3 w-fit">
+
+                
+                
                     <RouterLink to="/">
-                        <MenuItem class="text-black outline-hidden">
+                        <MenuItem>        
                             <template #icon>
-                                <div
-                                    class="i-basil:home-outline text-2xl pr-5"
-                                ></div>
+    
+                                <div class="i-basil:home-outline text-2xl"></div>
+                            
                             </template>
-                            Início
-                        </MenuItem>
+
+                        </MenuItem>                                           
                     </RouterLink>
 
                     <RouterLink to="/tables">
                         <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div
-                                    class="i-basil:box-outline text-2xl pr-5"
+                                    class="i-basil:box-outline text-2xl"
                                 ></div>
                             </template>
-                            Caixa
                         </MenuItem>
                     </RouterLink>
 
@@ -93,7 +100,7 @@ export default {
                         <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div
-                                    class="i-basil:wallet-outline text-2xl pr-5"
+                                    class="i-basil:wallet-outline text-2xl"
                                 ></div>
                             </template>
                             Gerenciar caixa
@@ -104,10 +111,10 @@ export default {
                         <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div
-                                    class="i-basil:chart-pie-alt-outline text-2xl pr-5"
+                                    class="i-basil:chart-pie-alt-outline text-2xl"
                                 ></div>
                             </template>
-                            Dashboard
+                            
                         </MenuItem>
                     </RouterLink>
 
@@ -115,17 +122,26 @@ export default {
                         <MenuItem class="text-black outline-hidden">
                             <template #icon>
                                 <div
-                                    class="i-basil:user-outline text-2xl pr-5"
+                                    class="i-basil:user-outline text-2xl"
                                 ></div>
                             </template>
-                            Conta / Usuário
+                        
                         </MenuItem>
                     </RouterLink>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-span-6 overflow-scroll max-h-screen">
+                    <MenuItem class="text-black outline-hidden">
+                        <template #icon>
+                                <div @click="Logout" class='i-basil:logout-outline text-red text-2xl'>
+                                    
+                                </div>
+                        </template>
+                    </MenuItem>        
+                </div>
+                
+            </div>
+                    
+
+        <div class="col-span-8 overflow-scroll max-h-screen">
             <header class="px-10 flex justify-between items-center">
                 <h2>Fume Artes System</h2>
             </header>
