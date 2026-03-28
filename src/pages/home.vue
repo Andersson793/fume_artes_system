@@ -16,6 +16,7 @@ import {
 } from "chart.js";
 import { useWebsiteStore } from "@stores/store.js";
 import { instance } from "@/axios.js";
+import FinancialIndicator from "../components/FinancialIndicator.vue";
 
 Chart.register(
     DoughnutController,
@@ -131,83 +132,49 @@ export default {
         AppMain,
         AppPanel,
         Bar,
+        FinancialIndicator,
     },
 };
 </script>
 <template>
     <AppMain>
-        <div class="col-span-6">
+        <div class="col-span-full flex justify-end" v-if="financialDataLoaded">
+            <div class="flex gap-5">
+                <FinancialIndicator>
+                    <template #label>CDI:</template>
+                    <template #value>
+                        {{ financialData.taxes[0].cdi }}
+                    </template>
+                </FinancialIndicator>
+                <FinancialIndicator>
+                    <template #label>SELIC:</template>
+                    <template #value>
+                        {{ financialData.taxes[0].selic }}
+                    </template>
+                </FinancialIndicator>
+                <FinancialIndicator>
+                    <template #label>Bitcoin:</template>
+                    <template #value>
+                        {{ financialData.bitcoin.bitstamp.buy }}
+                    </template>
+                </FinancialIndicator>
+
+                <FinancialIndicator>
+                    <template #label>Dólar: </template>
+                    <template #value>
+                        {{ financialData.currencies.USD.buy }}
+                    </template>
+                </FinancialIndicator>
+            </div>
+        </div>
+
+        <div class="col-span-full">
             <AppPanel
                 title_panel="Registro do caixa"
                 class="col-span-5 col-start-2"
                 v-if="loaded"
             >
                 <Bar :data="Bar.data" :options="Bar.options" />
-            </AppPanel>
-        </div>
-
-        <div class="col-span-2">
-            <AppPanel
-                title_panel="Informação financeira"
-                :reload="getFinancial"
-            >
-                <div v-if="financialDataLoaded">
-                    <p class="text-lg">
-                        <span class="text-bold">CDI: </span>
-                        {{ financialData.taxes[0].cdi }}
-                    </p>
-                    <p class="text-lg">
-                        <span class="text-bold">SELIC: </span>
-                        {{ financialData.taxes[0].selic }}
-                    </p>
-
-                    <p class="text-lg">
-                        <span class="text-bold">IBOVESPA: </span>
-                        {{ financialData.stocks.IBOVESPA.points }}
-                        <span
-                            v-if="financialData.stocks.IBOVESPA.variation > 0"
-                            class="text-sm text-green-500"
-                            >{{ financialData.stocks.IBOVESPA.variation }}%
-                        </span>
-                        <span v-else class="text-sm text-red-400"
-                            >{{
-                                financialData.stocks.IBOVESPA.variation
-                            }}%</span
-                        >
-                    </p>
-
-                    <p class="text-lg">
-                        <span class="text-bold">Dólar hoje: </span>
-                        {{ financialData.currencies.USD.buy }}
-
-                        <span
-                            v-if="financialData.currencies.USD.variation > 0"
-                            class="text-sm text-green-500"
-                            >{{ financialData.currencies.USD.variation }}%</span
-                        >
-                        <span v-else class="text-sm text-red-400"
-                            >{{ financialData.currencies.USD.variation }}%</span
-                        >
-                    </p>
-
-                    <p class="text-lg">
-                        <span class="text-bold">BTC: </span>
-                        {{ financialData.bitcoin.bitstamp.buy }}
-
-                        <span
-                            v-if="financialData.bitcoin.bitstamp.variation > 0"
-                            class="text-sm text-green-500"
-                            >{{
-                                financialData.bitcoin.bitstamp.variation
-                            }}%</span
-                        >
-                        <span v-else class="text-sm text-red-400"
-                            >{{
-                                financialData.bitcoin.bitstamp.variation
-                            }}%</span
-                        >
-                    </p>
-                </div>
             </AppPanel>
         </div>
     </AppMain>
