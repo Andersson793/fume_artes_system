@@ -39,6 +39,19 @@ import {
     SelectTrigger,
     SelectValue,
     SelectViewport,
+    AutocompleteAnchor,
+    AutocompleteArrow,
+    AutocompleteCancel,
+    AutocompleteContent,
+    AutocompleteEmpty,
+    AutocompleteInput,
+    AutocompleteItem,
+    AutocompleteLabel,
+    AutocompletePortal,
+    AutocompleteRoot,
+    AutocompleteTrigger,
+    AutocompleteViewport,
+    injectDateFieldRootContext,
 } from "reka-ui";
 import { options, component as VueNumber } from "@coders-tm/vue-number-format";
 import { instance } from "@/axios.js";
@@ -82,7 +95,7 @@ export default {
                 "Faixa de parabrisa",
                 "Restauração e adesivação de placa zebrada",
                 "Adesivo impresso",
-                "adesivo de recorte",
+                "Adesivo de recorte",
             ],
             selected_option: options[0],
             new_option: "",
@@ -223,6 +236,18 @@ export default {
         SelectTrigger,
         SelectValue,
         SelectViewport,
+        AutocompleteAnchor,
+        AutocompleteArrow,
+        AutocompleteCancel,
+        AutocompleteContent,
+        AutocompleteEmpty,
+        AutocompleteInput,
+        AutocompleteItem,
+        AutocompleteLabel,
+        AutocompletePortal,
+        AutocompleteRoot,
+        AutocompleteTrigger,
+        AutocompleteViewport,
     },
 };
 </script>
@@ -231,39 +256,33 @@ export default {
         <AppPanel title_panel="Lancar no caixa" class="col-span-4 col-start-2">
             <div class="grid grid-col-1 gap-30">
                 <div class="grid grid-col-1 gap-5">
-                    <ComboboxRoot v-model="form.combobox" class="relative">
-                        <ComboboxInput
-                            class="w-72 px-2 py-4 rounded-sm outline-none border-none bg-gray-100 font-semibold"
-                            placeholder="Descrição do item"
-                            v-model="new_option"
-                        />
+                    <AutocompleteRoot v-model="form.combobox" class="relative">
+                        <AutocompleteAnchor>
+                            <AutocompleteInput
+                                class="w-72 px-2 py-4 rounded-sm outline-none border-none bg-gray-100 font-semibold"
+                                placeholder="Descrição do item"
+                            />
+                        </AutocompleteAnchor>
 
-                        <ComboboxContent
+                        <AutocompleteContent
                             class="absolute z-10 bg-white border-solid border-gray-300 border-0.5 rounded-md max-h-50"
                         >
-                            <ComboboxViewport class="grid grid-cols-1 gap-1">
-                                <div
+                            <AutocompleteViewport
+                                class="grid grid-cols-1 gap-1"
+                            >
+                                <AutocompleteItem
                                     class="cursor-pointer hover:bg-blue-100 py-2 px-2"
-                                    :value="new_option"
-                                    @click="
-                                        form.combobox = new_option;
-                                        options.push(new_option);
-                                    "
-                                >
-                                    Criar {{ new_option }}
-                                </div>
-
-                                <ComboboxItem
-                                    v-for="(option, index) in options"
+                                    v-for="(item, index) in options"
                                     :key="index"
-                                    :value="option"
-                                    class="cursor-pointer hover:bg-blue-100 py-2 px-2"
+                                    :value="item"
                                 >
-                                    {{ option }}
-                                </ComboboxItem>
-                            </ComboboxViewport>
-                        </ComboboxContent>
-                    </ComboboxRoot>
+                                    {{ item }}
+                                </AutocompleteItem>
+                            </AutocompleteViewport>
+
+                            <AutocompleteArrow />
+                        </AutocompleteContent>
+                    </AutocompleteRoot>
 
                     <div>
                         <vue-number
@@ -274,16 +293,13 @@ export default {
                         ></vue-number>
                     </div>
 
-                
-                    
-                        <AppButton
-                            class="bg-blue-400 hover:bg-blue-300"
-                            @click="addItem"
-                        >
-                            <span class="mr-3">Criar novo item</span>
-                            <div class="i-basil:plus-solid text-3xl"></div>
-                        </AppButton>
-                    
+                    <AppButton
+                        class="bg-blue-400 hover:bg-blue-300"
+                        @click="addItem"
+                    >
+                        <span class="mr-3">Criar novo item</span>
+                        <div class="i-basil:plus-solid text-3xl"></div>
+                    </AppButton>
                 </div>
 
                 <table class="table-auto border-collapse">
