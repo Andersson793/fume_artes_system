@@ -51,7 +51,6 @@ import {
     AutocompleteRoot,
     AutocompleteTrigger,
     AutocompleteViewport,
-    injectDateFieldRootContext,
 } from "reka-ui";
 import { options, component as VueNumber } from "@coders-tm/vue-number-format";
 import { instance } from "@/axios.js";
@@ -69,7 +68,7 @@ export default {
                     items: [],
                     total: 0,
                 },
-                payment: "",
+                payment: "Pix",
                 customer: "Indefinido",
                 description: "",
             },
@@ -181,6 +180,7 @@ export default {
                     this.toast_sucess = true;
                     this.toast_content = "Salvo com sucesso.";
                     this.toast = true;
+                    console.log(resp);
 
                     this.clearForm();
                 })
