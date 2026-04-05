@@ -174,7 +174,11 @@ export default {
                 class="col-span-5 col-start-2"
                 v-if="loaded"
             >
-                <Bar :data="Bar.data" :options="Bar.options" />
+                <Bar
+                    :data="Bar.data"
+                    :options="Bar.options"
+                    class="max-h-[35rem]"
+                />
             </AppPanel>
         </div>
     </AppMain>
