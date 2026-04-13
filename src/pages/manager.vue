@@ -126,7 +126,7 @@ export default {
         clearForm() {
             this.form.combobox = "";
             this.form.price = 0;
-            this.form.payment = "";
+            this.form.payment = "Pix";
             this.form.items.items = [];
             this.form.items.total = 0;
             this.form.customer = "Indefinido";
@@ -159,36 +159,63 @@ export default {
         },
 
         postData() {
-            instance
-                .post(
-                    "/api/orders",
-                    {
-                        customer: this.form.customer,
-                        user_id: "c186964f-18c9-4f41-bf37-87e49d86e032",
-                        description: this.form.description,
-                        order_items: this.form.items.items,
-                        payment: this.form.payment,
-                        user_id: this.store.user_id,
-                    },
-                    {
-                        headers: {
-                            Authorization: sessionStorage.getItem("token"),
-                        },
-                    },
-                )
-                .then((resp) => {
-                    this.toast_sucess = true;
-                    this.toast_content = "Salvo com sucesso.";
-                    this.toast = true;
-                    console.log(resp);
+            function checkFields() {
+                let pass = true;
 
-                    this.clearForm();
-                })
-                .catch((err) => {
-                    this.toast_content = err;
-                    this.toast_sucess = false;
-                    this.toast = true;
-                });
+                if (this.form.description === "") {
+                    pass = false;
+                } else if (this.form.items.items == []) {
+                    pass = false;
+                } else if (this.form.payment === "") {
+                    pass = false;
+                } else if (this.store.user_id === "") {
+                    pass = false;
+                } else if (
+                    this.form.customer === "" ||
+                    this.form.customer != "Indefinido"
+                ) {
+                    pass = false;
+                }
+
+                return pass;
+            }
+
+            if (checkFields()) {
+                instance
+                    .post(
+                        "/api/orders",
+                        {
+                            customer: this.form.customer,
+                            description: this.form.description,
+                            payment: this.form.payment,
+                            user_id: this.store.user_id,
+                            order_items: this.form.items.items,
+                        },
+                        {
+                            headers: {
+                                Authorization: sessionStorage.getItem("token"),
+                            },
+                        },
+                    )
+                    .then((resp) => {
+                        this.toast_sucess = true;
+                        this.toast_content = "Salvo com sucesso.";
+                        this.toast = true;
+                        console.log(resp);
+
+                        this.clearForm();
+                    })
+                    .catch((err) => {
+                        this.toast_content = err;
+                        this.toast_sucess = false;
+                        this.toast = true;
+                        console.log(err);
+                    });
+            } else {
+                this.toast_content = "Existem campos vazios";
+                this.toast_sucess = false;
+                this.toast = true;
+            }
         },
 
         saveForm() {
