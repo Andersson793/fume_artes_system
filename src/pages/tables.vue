@@ -16,9 +16,12 @@ import {
     DialogRoot,
     DialogTitle,
     DialogTrigger,
+    CheckboxIndicator,
+    CheckboxRoot,
 } from "reka-ui";
 import DialogModal from "../components/DialogModal.vue";
 import useDifDate from "@/useDifDate";
+import todayFilter from "../todayFilter";
 
 export default {
     data() {
@@ -35,6 +38,7 @@ export default {
             },
 
             ordersData: [],
+            todayTableFilter: true,
             tableHeaders: [
                 "#",
                 "Descrição",
@@ -98,6 +102,14 @@ export default {
             this.modal = true;
         },
 
+        todayDataFilter() {
+            const filtered = this.ordersData.filter((order) =>
+                todayFilter(order.created_at),
+            );
+
+            return filtered;
+        },
+
         changeCurrentPage(p) {
             this.page = p;
         },
@@ -122,6 +134,8 @@ export default {
         DialogTrigger,
         RouterLink,
         DialogModal,
+        CheckboxIndicator,
+        CheckboxRoot,
     },
 };
 </script>
@@ -132,6 +146,20 @@ export default {
             title_panel="Movimento do caixa"
             :reload="getOrders"
         >
+            <div class="flex justify-end gap-3 mb-5">
+                <CheckboxRoot
+                    v-model="todayTableFilter"
+                    class="hover:bg-stone-50 flex h-5 w-5 appearance-none items-center justify-center rounded-md bg-white shadow-sm border outline-none"
+                >
+                    <CheckboxIndicator
+                        class="bg-white h-full w-full rounded flex items-center justify-center"
+                    >
+                        <div class="i-basil:check-outline"></div>
+                    </CheckboxIndicator>
+                </CheckboxRoot>
+                <span>Criados hoje.</span>
+            </div>
+
             <AppTable :headers="tableHeaders">
                 <tr
                     v-for="(row, index) in pageItems[page]"
@@ -185,7 +213,7 @@ export default {
 
             <div class="flex justify-center">
                 <Pagination
-                    :items="ordersData"
+                    :items="todayTableFilter ? todayDataFilter() : ordersData"
                     :page="page"
                     :changeCurrentPage="changeCurrentPage"
                     :changeData="changeData"

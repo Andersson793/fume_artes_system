@@ -21,6 +21,8 @@ export default function DifDate(oldDate, today) {
     resp = Math.floor(difHours / month) + " mês atrás.";
   } else if (difHours >= month * 2) {
     resp = Math.floor(difHours / month) + " meses atrás.";
+  } else {
+    resp = "--";
   }
 
   return resp;
