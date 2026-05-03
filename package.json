@@ -9,21 +9,21 @@
   },
   "dependencies": {
     "@coders-tm/vue-number-format": "^3.35.4",
-    "@vitejs/plugin-vue": "^6.0.5",
+    "@vitejs/plugin-vue": "^6.0.6",
     "chart.js": "^4.5.1",
     "pinia": "^3.0.4",
-    "reka-ui": "^2.9.3",
-    "unocss": "^66.6.7",
-    "vite": "^8.0.3",
-    "vue": "^3.5.32",
+    "reka-ui": "^2.9.6",
+    "unocss": "^66.6.8",
+    "vite": "^8.0.10",
+    "vue": "^3.5.33",
     "vue-chartjs": "^5.3.3",
-    "vue-router": "^5.0.4"
+    "vue-router": "^5.0.6"
   },
   "devDependencies": {
     "@iconify-json/basil": "^1.2.4",
     "@unocss/preset-icons": "66.6.7",
     "@unocss/preset-web-fonts": "66.6.7",
     "@unocss/preset-wind4": "66.6.7",
-    "axios": "^1.14.0"
+    "axios": "^1.16.0"
   }
 }
