@@ -22,6 +22,8 @@ import {
 import DialogModal from "../components/DialogModal.vue";
 import useDifDate from "@/useDifDate";
 import todayFilter from "../todayFilter";
+import PrimaryButton from "../components/Buttons/PrimaryButton.vue";
+import WarningButton from "../components/Buttons/WarningButton.vue";
 
 export default {
     data() {
@@ -99,6 +101,8 @@ export default {
             this.modal_date = date;
             this.modal_item_id = item_id;
 
+            console.log(this.modal_date);
+
             this.modal = true;
         },
 
@@ -110,12 +114,17 @@ export default {
             return filtered;
         },
 
-        changeCurrentPage(p) {
-            this.page = p;
-        },
+        dateToNumericFormat() {
+            const newDate = new Date(this.modal_date);
+            const formated = newDate.toLocaleString("pt-BR", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+            });
 
-        changeData(e) {
-            this.pageItems = e;
+            return formated;
         },
     },
     components: {
@@ -136,6 +145,8 @@ export default {
         DialogModal,
         CheckboxIndicator,
         CheckboxRoot,
+        PrimaryButton,
+        WarningButton,
     },
 };
 </script>
@@ -201,7 +212,6 @@ export default {
                     </td>
 
                     <td>
-                        <!-- with router params -->
                         <RouterLink :to="'/view/' + row.id">
                             <div
                                 class="i-basil:eye-solid text-2xl text-blue-300 cursor-pointer"
@@ -215,8 +225,8 @@ export default {
                 <Pagination
                     :items="todayTableFilter ? todayDataFilter() : ordersData"
                     :page="page"
-                    :changeCurrentPage="changeCurrentPage"
-                    :changeData="changeData"
+                    :changeCurrentPage="(p) => (page = p)"
+                    :changeData="(e) => (pageItems = e)"
                     :itemsPerPage="itemsPerPage"
                     v-if="ordersData.length > 0"
                 />
@@ -227,23 +237,14 @@ export default {
     <DialogModal :open="modal" title="Deseja deletar este item ?">
         <p>
             Deseja deletar o item <b>{{ modal_item }}</b> criado em
-            <b>{{
-                new Date(modal_date).toLocaleString("pt-BR", {
-                    day: "numeric",
-                    month: "numeric",
-                    year: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                })
-            }}</b>
+            <b>{{ dateToNumericFormat() }}</b>
         </p>
 
         <template #footer>
-            <AppButton @click="modal = !modal" class="bg-blue-400 mr-10"
-                >Fechar</AppButton
-            >
-            <AppButton @click="removeItem(modal_item_id)" class="bg-red-400"
-                >Deletar</AppButton
+            <PrimaryButton @click="modal = !modal">Fechar</PrimaryButton>
+
+            <WarningButton @click="removeItem(modal_item_id)"
+                >Deletar</WarningButton
             >
         </template>
     </DialogModal>

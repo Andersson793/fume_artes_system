@@ -16,7 +16,7 @@ export default {
         <div class="grid gap-7">
             <slot />
         </div>
-        <div class="flex justify-end mt-8">
+        <div class="flex justify-end mt-8 gap-5">
             <slot name="footer" />
         </div>
     </div>
