@@ -38,6 +38,12 @@ export default {
                 },
 
                 {
+                    router: "/products",
+                    icon: "i-basil:clipboard-alt-outline",
+                    class: "text-2xl",
+                },
+
+                {
                     router: "/account",
                     icon: "i-basil:user-outline",
                     class: "text-2xl",
