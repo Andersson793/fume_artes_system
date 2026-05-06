@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix"
   },
   "dependencies": {
     "@coders-tm/vue-number-format": "^3.35.4",
@@ -24,6 +26,7 @@
     "@unocss/preset-icons": "66.6.7",
     "@unocss/preset-web-fonts": "66.6.7",
     "@unocss/preset-wind4": "66.6.7",
-    "axios": "^1.16.0"
+    "axios": "^1.16.0",
+    "oxlint": "^1.63.0"
   }
 }
