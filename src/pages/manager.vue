@@ -164,7 +164,7 @@ export default {
 
                 if (this.form.description === "") {
                     pass = false;
-                } else if (this.form.items.items == []) {
+                } else if (this.form.items.items.length == 0) {
                     pass = false;
                 } else if (this.form.payment === "") {
                     pass = false;

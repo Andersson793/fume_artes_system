@@ -119,7 +119,6 @@ export default {
         AppTable,
         Select,
         AppButton,
-        AppInput,
         DialogModal,
         ToastTitle,
         ToastAction,
