@@ -6,10 +6,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "vitest",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix"
   },
-  "dependencies": {
+  "devDependencies": {
     "@coders-tm/vue-number-format": "^3.35.4",
     "@vitejs/plugin-vue": "^6.0.6",
     "chart.js": "^4.5.1",
@@ -19,14 +20,13 @@
     "vite": "^8.0.10",
     "vue": "^3.5.33",
     "vue-chartjs": "^5.3.3",
-    "vue-router": "^5.0.6"
-  },
-  "devDependencies": {
+    "vue-router": "^5.0.6",
     "@iconify-json/basil": "^1.2.4",
     "@unocss/preset-icons": "66.6.7",
     "@unocss/preset-web-fonts": "66.6.7",
     "@unocss/preset-wind4": "66.6.7",
     "axios": "^1.16.0",
-    "oxlint": "^1.63.0"
+    "oxlint": "^1.63.0",
+    "vitest": "^4.1.5"
   }
 }
