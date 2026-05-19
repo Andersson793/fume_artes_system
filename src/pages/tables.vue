@@ -181,7 +181,7 @@ export default {
                         {{ index + 1 + itemsPerPage * page }}
                     </td>
                     <td
-                        class="whitespace-nowrap overflow-hidden text-left p-4 w-full"
+                        class="case-upper whitespace-nowrap overflow-hidden text-left p-4 w-full"
                     >
                         {{ row.description }}
                     </td>
