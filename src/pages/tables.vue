@@ -2,7 +2,7 @@
 import AppPanel from "@/components/AppPanel.vue";
 import AppMain from "@/components/AppMain.vue";
 import { instance } from "@/axios.js";
-import { useLocalCurrency } from "@/useLocalCurrency";
+import { useLocalCurrency } from "@/utils/useLocalCurrency";
 import AppTable from "@/components/AppTable.vue";
 import AppButton from "@/components/form/AppButton.vue";
 import Pagination from "@/components/Pagination.vue";
@@ -20,8 +20,8 @@ import {
     CheckboxRoot,
 } from "reka-ui";
 import DialogModal from "../components/DialogModal.vue";
-import useDifDate from "@/useDifDate";
-import todayFilter from "../todayFilter";
+import useDifDate from "@/utils/useDifDate";
+import todayFilter from "@/utils/useTodayCheck.js";
 import PrimaryButton from "../components/Buttons/PrimaryButton.vue";
 import WarningButton from "../components/Buttons/WarningButton.vue";
 

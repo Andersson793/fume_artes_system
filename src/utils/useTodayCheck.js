@@ -1,5 +1,5 @@
-export default function todayFilter(d) {
-  const date = Date.parse(d);
+export default function useTodayCheck(day) {
+  const date = Date.parse(day);
 
   const today = new Date();
 

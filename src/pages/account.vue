@@ -14,8 +14,6 @@ export default {
         };
     },
     mounted() {
-        //fix this -> the component fetch the api for each mount
-
         instance
             .get("/api/users/c186964f-18c9-4f41-bf37-87e49d86e032", {
                 headers: {

@@ -6,7 +6,7 @@ import AppButton from "@components/form/AppButton.vue";
 import AppTable from "@components/AppTable.vue";
 import Select from "@components/Select.vue";
 import { instance } from "@/axios.js";
-import { useLocalCurrency } from "@/useLocalCurrency";
+import { useLocalCurrency } from "@/utils/useLocalCurrency";
 import DialogModal from "../components/DialogModal.vue";
 import { useWebsiteStore } from "@stores/store.js";
 import {
@@ -104,6 +104,7 @@ export default {
                     this.DiscardChages();
                 })
                 .catch((err) => {
+                    utils;
                     this.toast_content = err;
                     this.toast_sucess = false;
                     this.toast = true;

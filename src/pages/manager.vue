@@ -54,7 +54,7 @@ import {
 } from "reka-ui";
 import { options, component as VueNumber } from "@coders-tm/vue-number-format";
 import { instance } from "@/axios.js";
-import { useLocalCurrency } from "@/useLocalCurrency.js";
+import { useLocalCurrency } from "@/utils/useLocalCurrency.js";
 import { useWebsiteStore } from "@stores/store.js";
 
 export default {
@@ -159,20 +159,22 @@ export default {
         },
 
         postData() {
+            const form = this.form;
+            const store = this.store;
             function checkFields() {
                 let pass = true;
 
-                if (this.form.description === "") {
+                if (form.description === "") {
                     pass = false;
-                } else if (this.form.items.items.length == 0) {
+                } else if (form.items.items.length == 0) {
                     pass = false;
-                } else if (this.form.payment === "") {
+                } else if (form.payment === "") {
                     pass = false;
-                } else if (this.store.user_id === "") {
+                } else if (store.user_id === "") {
                     pass = false;
                 } else if (
-                    this.form.customer === "" ||
-                    this.form.customer != "Indefinido"
+                    form.customer === "" ||
+                    form.customer != "Indefinido"
                 ) {
                     pass = false;
                 }

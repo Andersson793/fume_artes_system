@@ -2,7 +2,7 @@
 import AppMain from "@/components/AppMain.vue";
 import AppPanel from "@/components/AppPanel.vue";
 import AppTable from "@/components/AppTable.vue";
-import { useLocalCurrency } from "@/useLocalCurrency";
+import { useLocalCurrency } from "@/utils/useLocalCurrency";
 import AppInput from "@/components/form/AppInput.vue";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
 import { options, component as VueNumber } from "@coders-tm/vue-number-format";
