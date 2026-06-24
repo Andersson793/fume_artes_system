@@ -19,7 +19,7 @@
     "@vitejs/plugin-vue": "^6.0.7",
     "axios": "^1.16.1",
     "chart.js": "^4.5.1",
-    "oxlint": "^1.65.0",
+    "oxlint": "^1.66.0",
     "pinia": "^3.0.4",
     "reka-ui": "^2.9.7",
     "unocss": "^66.6.8",
